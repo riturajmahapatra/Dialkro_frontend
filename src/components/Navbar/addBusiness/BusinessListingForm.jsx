@@ -46,9 +46,10 @@ const BusinessListingForm = () => {
       <Nav />
       <div className="flex items-center justify-center" onSubmit={() => navigate('/businessform')}>
         <form
-          className=" container mt-32 w-[55vw] rounded-lg border p-10 max-md:w-full"
+          className=" container mt-32 w-[55vw] relative rounded-lg border p-10 max-md:w-full"
           onSubmit={handleSubmit}>
           <div className="mb-5 text-center">
+          <button className=' text-2xl absolute right-2 text-gray-400 top-2   px-2'  onClick={()=> navigate('/') }> ⨉ </button>
             <h1 className="text-xl font-light">
               Get your business listed for{' '}
               <span className="bg-yellow-400 px-1 font-semibold">FREE</span> on {`India's`} premier
