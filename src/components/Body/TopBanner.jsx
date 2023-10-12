@@ -140,22 +140,22 @@ const TopBanner = () => {
         <AlignmentCards
           images={`/TopBannerCarousel/b2b.webp`}
           prompt={'B2B'}
-          onClick={() => navigate('/b2bcategory')}
+          onClick={'/b2bcategory'}
         />
         <AlignmentCards
           images={`/TopBannerCarousel/automobile.webp`}
           prompt={'AutoMobile Parts'}
-          onClick={() => navigate('/autocarecategory')}
+          onClick={'/autocarecategory'}
         />
         <AlignmentCards
           images={`/TopBannerCarousel/home.webp`}
           prompt={'Home Services'}
-          onClick={() => navigate('/homeservicescategory')}
+          onClick={'/homeservicescategory'}
         />
         <AlignmentCards
           images={`/TopBannerCarousel/doctor.webp`}
           prompt={'Doctor'}
-          onClick={() => navigate('/b2bcategory')}
+          onClick={'/subcategorydoctors'}
         />
       </div>
     </div>
