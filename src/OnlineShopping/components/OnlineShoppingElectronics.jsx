@@ -2,8 +2,30 @@ import React from 'react'
 import Nav from '../../components/Navbar/Nav'
 import Footer from '../../components/Footer/Footer'
 import DropdownMenu from './DropdownComponent'
+import Card from '../../components/Card'
+import { faker } from '@faker-js/faker'
+import Section from '../../components/Section'
 
 const OnlineShoppingElectronics = () => {
+  function CardList() {
+    const cards = []
+    for (let i = 0; i < 10; i++) {
+      cards.push(
+        <Card
+          id={i}
+          heading={faker.commerce.productName()}
+          description={faker.commerce.productDescription()}
+          companyName={faker.company.buzzVerb()}
+          image={faker.image.url()}
+          price={faker.commerce.price()}
+          rating={faker.number.float({ min: 1, max: 5, precision: 0.1 })}
+          reviews={faker.number.int({ max: 10000 })}
+        />
+      )
+    }
+    return cards
+  }
+  const cards = CardList()
   return (
     <>
       <Nav services={`Electronics`} />
@@ -63,9 +85,11 @@ const OnlineShoppingElectronics = () => {
         />
       </div>
       <div className="my-10 flex items-center justify-center">
-        <img src="/onlineshoppingCarousel/frames/Frame 10.svg" alt="alt" className="mt-20" />
+        <img src="/onlineshoppingCarousel/frames/Frame 10.jpg" alt="alt" className="mt-20" />
       </div>
-
+      <div className=" flex w-full flex-col items-center justify-center gap-10">
+        <Section FirstHeading="Electrified Deals" cards={cards} isCardCarousel={true} />
+      </div>
       <Footer />
     </>
   )
