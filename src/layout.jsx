@@ -8,8 +8,6 @@ import BannerCarousel from './components/Body/Carousel/BannerCarousel'
 import TopBanner from './components/Body/TopBanner'
 
 const Layout = () => {
-  const location = useLocation()
-
   const images = [
     '/CarouselImages/doctor.webp',
     '/CarouselImages/market.webp',
