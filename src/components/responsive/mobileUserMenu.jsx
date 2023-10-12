@@ -12,7 +12,7 @@ const MobileUserMenu = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(true)
   const dropdownRef = useRef(null)
   const navigate = useNavigate()
- 
+
   const toggleOpen = () => {
     setIsOpen((prevIsOpen) => !prevIsOpen)
   }
@@ -70,7 +70,12 @@ const MobileUserMenu = () => {
           <div className="flex cursor-pointer flex-col">
             {isLoggedIn ? (
               <>
-                <MenuItem label="Services" onClick={() => {}} />
+                <MenuItem
+                  label="Services"
+                  onClick={() => {
+                    navigate('/')
+                  }}
+                />
                 <MenuItem
                   label="Add Business"
                   onClick={() => {
