@@ -4,7 +4,6 @@ import AlignmentCards from '../../components/ui/AlignmentCards'
 import { useNavigate } from 'react-router-dom'
 
 const TopBanner = () => {
-  const navigate = useNavigate()
   const images = [
     {
       url: 'TopBannerCarousel/vege1.webp'
@@ -60,11 +59,11 @@ const TopBanner = () => {
                 backgroundImage: `url(${images[currentIndex].url})`
               }}
               className="flex h-full w-full items-center justify-center overflow-hidden rounded-2xl bg-cover bg-center duration-500 ">
-              <a
+              <p
                 href="/onlineshoppingcategories"
-                className=" hidden cursor-pointer text-center text-4xl font-extrabold text-white duration-500 hover:scale-[1.5] group-hover:block">
+                className=" cursor-pointer text-center text-4xl font-extrabold text-white duration-500 hover:scale-[1.5] group-hover:block">
                 Order Now!
-              </a>
+              </p>
             </div>
           </a>
 
