@@ -85,7 +85,11 @@ const CardSection = ({ onClick }) => {
               </button>
             ) : (
               <p className="w-80">
-                <button className="group relative mb-2 mr-2 inline-flex h-10 w-24 items-center justify-center overflow-hidden rounded-lg border border-black bg-gradient-to-b from-blue-500 to-teal-400 font-semibold text-white hover:bg-black">
+                <button
+                  onClick={() => {
+                    setIsLoginModalOpen(true)
+                  }}
+                  className="group relative mb-2 mr-2 inline-flex h-10 w-24 items-center justify-center overflow-hidden rounded-lg border border-black bg-gradient-to-b from-blue-500 to-teal-400 font-semibold text-white hover:bg-black">
                   {' '}
                   Order Now!
                 </button>
