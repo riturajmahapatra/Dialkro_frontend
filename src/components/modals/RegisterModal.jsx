@@ -1,4 +1,3 @@
-
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react'
 
@@ -8,32 +7,32 @@ function RegisterModal({ onClose, onLoginClick }) {
     onLoginClick() // Open the RegisterModal
   }
 
-  const [email, setemail] = useState();
-  const [userName, setuserName] = useState();
-  const [password, setpassword] = useState();
-  const [reEnterPassword, setreEnterPassword] = useState();
+  const [email, setemail] = useState()
+  const [userName, setuserName] = useState()
+  const [password, setpassword] = useState()
+  const [reEnterPassword, setreEnterPassword] = useState()
 
-  const obj = {userName, email, password, reEnterPassword}
-  
-  const handleSubmit = async (e)=>{
-    e.preventDefault();
-   let postuserInfo = await fetch('http://localhost:4000/register/user',{
-    method:'post',
-    body:JSON.stringify(obj),
-    headers:{
-      'Content-Type': 'application/json'
+  const obj = { userName, email, password, reEnterPassword }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    let postuserInfo = await fetch('http://localhost:4000/register/user', {
+      method: 'post',
+      body: JSON.stringify(obj),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    postuserInfo = await postuserInfo.json()
+    localStorage.setItem('user', JSON.stringify(postuserInfo.newUser))
+    localStorage.setItem('token', JSON.stringify(postuserInfo.Token))
+    if (postuserInfo.Token) {
+      alert('register successfully !')
+    } else {
+      alert(postuserInfo.msg)
     }
-   });
-   postuserInfo = await postuserInfo.json();
-   localStorage.setItem('user', JSON.stringify(postuserInfo.newUser))
-   localStorage.setItem('token', JSON.stringify(postuserInfo.Token))
-   if(postuserInfo.Token){
-    alert('register successfully !')
-   }else{
-    alert(postuserInfo.msg);
-   }
   }
-  
+
   return (
     <div
       id="authentication-modal"
@@ -43,7 +42,7 @@ function RegisterModal({ onClose, onLoginClick }) {
         <div className="relative z-50 rounded-lg bg-white shadow dark:bg-gray-700">
           <button
             type="button"
-            className="absolute right-2.5 top-3 ml-auto inline-flex h-8 w-8 items-center justify-center rounded-lg bg-gray-400 bg-transparent text-sm text-black  dark:hover:bg-gray-600 dark:hover:text-black"
+            className="absolute right-2.5 top-3 ml-auto inline-flex h-8 w-8 items-center justify-center rounded-lg bg-gray-500 bg-transparent text-sm text-black  dark:hover:bg-gray-600 dark:hover:text-black"
             data-modal-hide="authentication-modal"
             onClick={() => {
               onClose() // Call the onClose function to close the modal
@@ -64,7 +63,7 @@ function RegisterModal({ onClose, onLoginClick }) {
                   Your email
                 </label>
                 <input
-                onChange={(e)=>setemail(e.target.value)}
+                  onChange={(e) => setemail(e.target.value)}
                   type="email"
                   name="email"
                   id="email"
@@ -80,7 +79,7 @@ function RegisterModal({ onClose, onLoginClick }) {
                   Name
                 </label>
                 <input
-                onChange={(e)=>setuserName(e.target.value)}
+                  onChange={(e) => setuserName(e.target.value)}
                   type="text"
                   name="name"
                   id="name"
@@ -96,7 +95,7 @@ function RegisterModal({ onClose, onLoginClick }) {
                   Your password
                 </label>
                 <input
-                onChange={(e)=>setpassword(e.target.value)}
+                  onChange={(e) => setpassword(e.target.value)}
                   type="password"
                   name="password"
                   id="password"
@@ -112,7 +111,7 @@ function RegisterModal({ onClose, onLoginClick }) {
                   Re-enter your password
                 </label>
                 <input
-                onChange={(e)=>setreEnterPassword(e.target.value)}
+                  onChange={(e) => setreEnterPassword(e.target.value)}
                   type="password"
                   name="password"
                   id="password"

@@ -4,7 +4,6 @@ import AlignmentCards from '../../components/ui/AlignmentCards'
 import { useNavigate } from 'react-router-dom'
 
 const TopBanner = () => {
-  const navigate = useNavigate()
   const images = [
     {
       url: 'TopBannerCarousel/vege1.webp'
@@ -54,19 +53,19 @@ const TopBanner = () => {
     <div>
       <div className=" mt-10 flex items-center gap-5 px-10 max-md:px-3">
         <div className="group relative m-auto h-[50vh] w-full overflow-hidden object-cover px-4 py-16 max-md:h-[35vh] max-md:w-[130vw] ">
-          <div
-            style={{
-              backgroundImage: `url(${images[currentIndex].url})`
-            }}
-            className="flex h-full w-full items-center justify-center overflow-hidden rounded-2xl bg-cover bg-center duration-500 ">
-            <a
-              onClick={() => {
-                navigate('/onlineshoppingcategories')
+          <a href="/onlineshoppingcategories">
+            <div
+              style={{
+                backgroundImage: `url(${images[currentIndex].url})`
               }}
-              className=" hidden cursor-pointer text-center text-4xl font-extrabold text-white duration-500 hover:scale-[1.5] group-hover:block">
-              Order Now!
-            </a>
-          </div>
+              className="flex h-full w-full items-center justify-center overflow-hidden rounded-2xl bg-cover bg-center duration-500 ">
+              <p
+                href="/onlineshoppingcategories"
+                className=" cursor-pointer text-center text-4xl font-extrabold text-white duration-500 hover:scale-[1.5] group-hover:block">
+                Order Now!
+              </p>
+            </div>
+          </a>
 
           <div className="absolute left-5 top-[50%] hidden -translate-x-0 translate-y-[-50%] cursor-pointer rounded-full bg-black/20 p-2 text-2xl text-white group-hover:block">
             <BsChevronCompactLeft size={30} onClick={prevImg} />
