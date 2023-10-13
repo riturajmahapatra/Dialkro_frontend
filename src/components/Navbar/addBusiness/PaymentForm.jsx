@@ -43,13 +43,13 @@ const PaymentForm = () => {
           <form className='py-4' onSubmit={handleSubmit}>
             <h1 className='text-center py-3 mt-5 mb-5 text-xl font-bold bg-blue-500 rounded text-white'>Select Payment Method</h1>
             <div className="grid grid-cols-2 gap-10 md:grid-cols-3 lg:grid-cols-5 py-2">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2">   
                 <input
                   id="google"
-                  className="rounded-sm"
+                  className="rounded-sm"    
                   name='same'
                   value={googlepay}
-                  onClick={(e) => setgooglepay(true)}
+                  onChange={(e) => setgooglepay(e.target.checked)}
                   type="checkbox"
                 />
                 <label htmlFor="google">GooglePay</label>
@@ -61,7 +61,7 @@ const PaymentForm = () => {
                   value={phonepay}
                   name='same'
                   id="phone"
-                  onChange={(e) => setphonepay(e.target.value)}
+                  onChange={(e) => setphonepay(e.target.checked)}
                   type="checkbox"
                 />
                 <label htmlFor="phone">PhonePe</label>
@@ -70,7 +70,7 @@ const PaymentForm = () => {
               <div className="flex items-center gap-2">
                 <input
                   className="rounded-sm"
-                  onChange={(e) => setbhimpe(e.target.value)}
+                  onChange={(e) => setbhimpe(e.target.checked)}
                   value={bhimpe}
                   name='same'
                   id="bhimpe"
@@ -85,7 +85,7 @@ const PaymentForm = () => {
                   value={mobikwik}
                   name='same'
                   id="mobikwik"
-                  onChange={(e) => setmobikwik(e.target.value)}
+                  onChange={(e) => setmobikwik(e.target.checked)}
                   type="checkbox"
                 />
                 <label htmlFor="mobikwik">Mobikwik</label>
@@ -97,7 +97,7 @@ const PaymentForm = () => {
                   value={uberpay}
                   name='same'
                   id="uberpay"
-                  onChange={(e) => setuberpay(e.target.value)}
+                  onChange={(e) => setuberpay(e.target.checked)}
                   type="checkbox"
                 />
                 <label htmlFor="uberpay">UberPay</label>
@@ -111,7 +111,7 @@ const PaymentForm = () => {
                   value={sbipay}
                   name='same'
                   id="sbi"
-                  onChange={(e) => setsbipay(e.target.value)}
+                  onChange={(e) => setsbipay(e.target.checked)}
                   type="checkbox"
                 />
                 <label htmlFor="sbi">SBI Pay</label>
@@ -123,7 +123,7 @@ const PaymentForm = () => {
                   value={imobile}
                   name='same'
                   id="imobile"
-                  onChange={(e) => setimobile(e.target.value)}
+                  onChange={(e) => setimobile(e.target.checked)}
                   type="checkbox"
                 />
                 <label htmlFor="imobile">iMobile</label>
@@ -135,7 +135,7 @@ const PaymentForm = () => {
                   value={axispay}
                   name='same'
                   id="axispay"
-                  onChange={(e) => setaxispay(e.target.value)}
+                  onChange={(e) => setaxispay(e.target.checked)}
                   type="checkbox"
                 />
                 <label htmlFor="axispay">AxisPay</label>
@@ -147,7 +147,7 @@ const PaymentForm = () => {
                   value={chillr}
                   name='same'
                   id="chillr"
-                  onChange={(e) => setchillr(e.target.value)}
+                  onChange={(e) => setchillr(e.target.checked)}
                   type="checkbox"
                 />
                 <label htmlFor="chillr">Chillr</label>
@@ -159,7 +159,7 @@ const PaymentForm = () => {
                   value={paytm}
                   name='same'
                   id="paytm"
-                  onChange={(e) => setpaytm(e.target.value)}
+                  onChange={(e) => setpaytm(e.target.checked)}
                   type="checkbox"
                 />
                 <label htmlFor="paytm">Paytm payment</label>
@@ -173,7 +173,7 @@ const PaymentForm = () => {
                   value={bob}
                   name='same'
                   id="bob"
-                  onChange={(e) => setbob(e.target.value)}
+                  onChange={(e) => setbob(e.target.checked)}
                   type="checkbox"
                 />
                 <label htmlFor="bob">(BOB) UPI</label>
@@ -185,7 +185,7 @@ const PaymentForm = () => {
                   value={amazonpay}
                   name='same'
                   id="amazon"
-                  onChange={(e) => setamozonpay(e.target.value)}
+                  onChange={(e) => setamozonpay(e.target.checked)}
                   type="checkbox"
                 />
                 <label htmlFor="amazon">Amazon Pay</label>
@@ -197,7 +197,7 @@ const PaymentForm = () => {
                   value={freecharge}
                   name='same'
                   id="freecharge"
-                  onChange={(e) => setfreecharge(e.target.value)}
+                  onChange={(e) => setfreecharge(e.target.checked)}
                   type="checkbox"
                 />
                 <label htmlFor="freecharge">Freecharge</label>
@@ -209,7 +209,7 @@ const PaymentForm = () => {
                   value={cred}
                   name='same'
                   id="cred"
-                  onChange={(e) => setcred(e.target.value)}
+                  onChange={(e) => setcred(e.target.checked)}
                   type="checkbox"
                 />
                 <label htmlFor="cred">Cred</label>
@@ -222,7 +222,7 @@ const PaymentForm = () => {
                   value={cashondelivery}
                   name='same'
                   id="cashondelivery"
-                  onChange={(e) => setcashondelivery(e.target.value)}
+                  onChange={(e) => setcashondelivery(e.target.checked)}
                   type="checkbox"
                 />
                 <label htmlFor="cashondelivery">Cash On Delivery</label>
