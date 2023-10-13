@@ -1,183 +1,247 @@
-import { useState } from 'react'
-import { generateCartProductsData } from './CartFunc'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import Nav from '../components/Navbar/Nav'
+import Footer from '../components/Footer/Footer'
 
-const CheckoutPage = () => {
-  const cartProducts = generateCartProductsData()
-  const [totalPrice, setTotalPrice] = useState(5000)
+export function ShoppingCart() {
+  const [cart, setCart] = useState([
+    { id: 1, name: 'Product 1', price: 20, quantity: 1 },
+    { id: 2, name: 'Product 2', price: 30, quantity: 2 },
+    { id: 3, name: 'Product 3', price: 25, quantity: 1 }
+  ])
 
-  const [updateDetails, setUpdateDetails] = useState(false)
-  const [updateAddress, setUpdateAddress] = useState('')
-  const [updatePhone, setUpdatePhone] = useState('')
+  const handleIncrement = (id) => {
+    const updatedCart = cart.map((item) =>
+      item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+    )
+    setCart(updatedCart)
+  }
+
+  const handleDecrement = (id) => {
+    const updatedCart = cart.map((item) =>
+      item.id === id && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
+    )
+    setCart(updatedCart)
+  }
+
+  const handleDelete = (id) => {
+    const updatedCart = cart.filter((item) => item.id !== id)
+    setCart(updatedCart)
+  }
+
+  const calculateTotal = () => {
+    return cart.reduce((total, item) => total + item.price * item.quantity, 0)
+  }
+
+  return (
+    <div className="container mx-auto p-8">
+      <h2 className="mb-4 text-lg font-semibold">Shopping Cart</h2>
+      {cart.map((item) => (
+        <div key={item.id} className="mb-4 rounded-lg border p-4 shadow-md">
+          <div className="flex items-center justify-between">
+            <div>
+              <img
+                src="http://via.placeholder.com/100x100" // Placeholder image
+                alt={item.name}
+                className="h-16 w-16 rounded-lg object-cover"
+              />
+              <div className="mt-2">
+                <h3 className="text-lg font-semibold">{item.name}</h3>
+                <p className="text-gray-600">Price: ₹{item.price.toFixed(2)}</p>
+              </div>
+            </div>
+            <div>
+              <button
+                onClick={() => handleDecrement(item.id)}
+                className="rounded-md bg-blue-500 p-2 px-4 text-white hover:bg-blue-600">
+                -
+              </button>
+              <span className="mx-2">{item.quantity}</span>
+              <button
+                onClick={() => handleIncrement(item.id)}
+                className="rounded-md bg-blue-500 p-2 px-4 text-white hover:bg-blue-600">
+                +
+              </button>
+              <button
+                onClick={() => handleDelete(item.id)}
+                className="ml-5 rounded-md bg-red-500 p-2 px-4 text-white hover:bg-red-600">
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      ))}
+      <div className="text-right">
+        <p className="text-lg font-semibold">Total: ₹{calculateTotal().toFixed(2)}</p>
+      </div>
+    </div>
+  )
+}
+
+function CheckoutPage() {
+  const [shippingInfo, setShippingInfo] = useState({
+    name: '',
+    address: '',
+    city: '',
+    zipcode: ''
+  })
+
+  const [paymentInfo, setPaymentInfo] = useState({
+    card: '',
+    expiry: '',
+    cvv: ''
+  })
+
+  const handleShippingChange = (e) => {
+    const { name, value } = e.target
+    setShippingInfo({
+      ...shippingInfo,
+      [name]: value
+    })
+  }
+
+  const handlePaymentChange = (e) => {
+    const { name, value } = e.target
+    setPaymentInfo({
+      ...paymentInfo,
+      [name]: value
+    })
+  }
+
+  const handlePlaceOrder = () => {
+    // Handle placing the order here
+    console.log('Shipping Info:', shippingInfo)
+    console.log('Payment Info:', paymentInfo)
+    // You can add your logic to process the order
+  }
 
   return (
     <>
       <Nav />
-      <main className="  mx-20 flex flex-col">
-        <h1 className="mb-10 mt-[10vh] text-3xl font-bold">Shopping Cart</h1>
-        {cartProducts.map((product) => (
-          <CartProduct
-            key={product.id}
-            productCompanyName={product.companyName}
-            productImage={product.image}
-            productName={product.name}
-            productPrice={product.price}
-            productColor={product.color}
-            productSize={product.size}
-            productStockQuantity={product.StockQuantity}
-            setTotalPrice={setTotalPrice}
-          />
-        ))}
-        <div className="  mt-10 flex flex-wrap justify-end gap-10">
-          <div className=" flex h-28 flex-1  items-center justify-between gap-20 rounded-3xl border px-5">
-            <div className="flex items-center justify-between">
-              <span className="mr-2 inline w-[100px] text-xl font-bold">Phone no:</span>
+      <div className="container mx-auto  p-8">
+        <h2 className="mt-[10vh] text-2xl font-bold">Your Cart</h2>
+        <ShoppingCart />
+        <div className="mt-4"></div>
+        <div className="mt-4 rounded-lg bg-white p-4 shadow-md">
+          <h2 className="text-lg font-semibold">Shipping Information</h2>
+          <form>
+            <div className="mt-4">
+              <label htmlFor="name" className="block text-sm font-medium">
+                Full Name
+              </label>
               <input
-                id="phone"
-                Z
-                type="number"
-                placeholder="Phone no."
-                disabled={!updateDetails}
-                value={updatePhone}
-                onChange={(e) => setUpdatePhone(e.target.value)}
-                className="flex-1 rounded-md border bg-slate-100 px-5 py-2 text-lg font-semibold"
+                type="text"
+                id="name"
+                name="name"
+                className="w-full rounded-lg border p-2"
+                placeholder="John Doe"
+                value={shippingInfo.name}
+                onChange={handleShippingChange}
               />
             </div>
-            <div className=" h-20 border" />
-            <div className=" flex w-full items-center gap-2">
-              <span className="mr-2 inline w-[100px] text-xl font-bold">Address:</span>
+            <div className="mt-4">
+              <label htmlFor="address" className="block text-sm font-medium">
+                Address
+              </label>
               <input
+                type="text"
                 id="address"
-                type="address"
-                placeholder="Address"
-                disabled={!updateDetails}
-                className="flex-1  rounded-md border bg-slate-100 px-5 py-2 text-lg font-semibold"
-                value={updateAddress}
-                onChange={(e) => setUpdateAddress(e.target.value)}
+                name="address"
+                className="w-full rounded-lg border p-2"
+                placeholder="123 Main St"
+                value={shippingInfo.address}
+                onChange={handleShippingChange}
               />
             </div>
-            <div className="h-20 border" />
-            <div className=" flex w-[12vw] justify-center">
-              <button
-                onClick={() => setUpdateDetails(!updateDetails)}
-                className="w-40 rounded-md bg-[#4895ef] py-2 font-semibold text-white">
-                {updateDetails ? 'Update' : 'Edit Details'}
-              </button>
+            <div className="mt-4">
+              <label htmlFor="city" className="block text-sm font-medium">
+                City
+              </label>
+              <input
+                type="text"
+                id="city"
+                name="city"
+                className="w-full rounded-lg border p-2"
+                placeholder="Your City"
+                value={shippingInfo.city}
+                onChange={handleShippingChange}
+              />
             </div>
-          </div>
-          <div className=" flex h-28 w-[25vw] items-center rounded-3xl border px-5">
-            {/* Place your order */}
-            <div className=" flex w-[12vw] justify-center">
-              <Link href={'/paymentGateway'}>
-                <button className="w-40 rounded-md bg-[#f77f00] py-2 font-semibold text-white">
-                  place order
-                </button>
-              </Link>
+            <div className="mt-4">
+              <label htmlFor="zipcode" className="block text-sm font-medium">
+                Zip Code
+              </label>
+              <input
+                type="text"
+                id="zipcode"
+                name="zipcode"
+                className="w-full rounded-lg border p-2"
+                placeholder="12345"
+                value={shippingInfo.zipcode}
+                onChange={handleShippingChange}
+              />
             </div>
-
-            {/* Total Price */}
-            <div className="flex w-[9vw] flex-col items-center  border-l">
-              <span className="text-lg font-semibold">Total Price</span>
-              <span className="text-sm font-semibold text-gray-400">{` + (Shipping Charges)`}</span>
-              <span className="mt-3 text-lg font-medium">&#x20B9;{totalPrice}</span>
-            </div>
-          </div>
+          </form>
         </div>
-      </main>
+        <div className="mt-4 rounded-lg bg-white p-4 shadow-md">
+          <h2 className="text-lg font-semibold">Payment Information</h2>
+          <form className="flex gap-10">
+            <div className="mt-4">
+              <label htmlFor="card" className="block text-sm font-medium">
+                Credit Card Number
+              </label>
+              <input
+                type="text"
+                id="card"
+                name="card"
+                className=" w-full rounded-lg border p-2"
+                placeholder="1234 5678 9012 3456"
+                value={paymentInfo.card}
+                onChange={handlePaymentChange}
+              />
+            </div>
+            <div className="mt-4">
+              <label htmlFor="expiry" className="block text-sm font-medium">
+                Expiry Date
+              </label>
+              <input
+                type="text"
+                id="expiry"
+                name="expiry"
+                className="w-full rounded-lg border p-2"
+                placeholder="MM / YY"
+                value={paymentInfo.expiry}
+                onChange={handlePaymentChange}
+              />
+            </div>
+            <div className="mt-4">
+              <label htmlFor="cvv" className="block text-sm font-medium">
+                CVV
+              </label>
+              <input
+                type="text"
+                id="cvv"
+                name="cvv"
+                className="w-full rounded-lg border p-2"
+                placeholder="123"
+                value={paymentInfo.cvv}
+                onChange={handlePaymentChange}
+              />
+            </div>
+          </form>
+        </div>
+
+        {/* Place Order Button */}
+        <div className="mt-8 text-center">
+          <button
+            className="rounded-lg bg-blue-500 p-2 px-4 text-white hover:bg-blue-600"
+            onClick={handlePlaceOrder}>
+            Place Order
+          </button>
+        </div>
+      </div>
       <Footer />
     </>
   )
 }
 
 export default CheckoutPage
-
-// ------------------------------------------------------------------
-
-import { Trash } from 'lucide-react'
-import Nav from '../components/Navbar/Nav'
-import Footer from '../components/Footer/Footer'
-
-export const CartProduct = ({
-  productCompanyName,
-  productImage,
-  productName,
-  productPrice,
-  productColor,
-  productSize,
-  productStockQuantity,
-  setTotalPrice
-}) => {
-  return (
-    <>
-      <div className="flex  gap-10">
-        {/* Delete icon and logic  */}
-        <div className="">
-          <Trash color="red" />
-        </div>
-        {/* Image */}
-        <img src={productImage} className="aspect-square h-[100px] rounded-md" alt="FakeImage" />
-
-        {/* content */}
-        <div className="flex w-full flex-col">
-          <span className="font-semibold">{productCompanyName}</span>
-          <span className="text-xl font-bold">{productName}</span>
-          <div className="flex gap-5">
-            <div className="flex items-center  gap-1">
-              <div className={`h-4 w-4 rounded-full  bg-${productColor}-500`}></div>
-              <span className="text-lg ">{productColor}</span>
-            </div>
-            <span className="text-lg ">{productSize}</span>
-            <span className="text-lg ">&#x20B9;{productPrice}</span>
-          </div>
-        </div>
-        {/* Quantity and Price */}
-        <div className="mx-10 border-r" />
-        <ProductQuantity
-          setTotalPrice={setTotalPrice}
-          productPrice={productPrice}
-          productStockQuantity={productStockQuantity}
-        />
-      </div>
-      {/* <Separator className="mb-16 mt-5" /> */}
-      <div className="mb-16 mt-5 border-b" />
-    </>
-  )
-}
-
-//  ------------------------------------------------------------------
-
-export const ProductQuantity = ({ productStockQuantity, productPrice, setTotalPrice }) => {
-  const ProductStock = productStockQuantity
-  const [quantity, setQuantity] = useState(1)
-
-  const updateTotalPrice = (newQuantity) => {
-    setQuantity(newQuantity)
-    const newTotalPrice = productPrice * newQuantity
-    setTotalPrice((prev) => prev + newTotalPrice)
-  }
-
-  return (
-    <>
-      <div className="mt- flex w-[200px] flex-col gap-2">
-        <span className="text-lg font-semibold">Quantity</span>
-        <div className="flex items-center rounded-md border">
-          <button
-            className="flex w-10 items-center justify-center border-r text-xl font-semibold"
-            onClick={() => quantity > 1 && updateTotalPrice(quantity - 1)}>{`-`}</button>
-          <span className=" flex w-10 items-center justify-center text-xl font-semibold">
-            {quantity}
-          </span>
-          <button
-            className=" flex w-10 items-center justify-center border-l text-xl font-semibold"
-            onClick={() => quantity < ProductStock && updateTotalPrice(quantity + 1)}>{`+`}</button>
-        </div>
-      </div>
-      <div className="mx-10 border-r" />
-      {/* Total Price */}
-      <div className="flex w-[200px] flex-col items-start gap-2 ">
-        <span className="text-lg font-semibold">Price</span>
-        <span className="text-lg font-medium"> &#x20B9;{productPrice * quantity}</span>
-      </div>
-    </>
-  )
-}
