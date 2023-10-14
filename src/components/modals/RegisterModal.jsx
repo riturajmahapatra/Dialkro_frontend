@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react'
-
+import React, { useState } from 'react';
 function RegisterModal({ onClose, onLoginClick }) {
   const handleLoginClick = () => {
     onClose() // Close the LoginModal
@@ -10,13 +9,14 @@ function RegisterModal({ onClose, onLoginClick }) {
   const [email, setemail] = useState()
   const [userName, setuserName] = useState()
   const [password, setpassword] = useState()
-  const [reEnterPassword, setreEnterPassword] = useState()
+  const [reEnterPassword, setreEnterPassword] = useState();
 
   const obj = { userName, email, password, reEnterPassword }
+  console.log(import.meta.env.VITE_REACT_APP);
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    let postuserInfo = await fetch('http://localhost:4000/register/user', {
+    let postuserInfo = await fetch(`${import.meta.env.VITE_REACT_APP}/register/user`, {
       method: 'post',
       body: JSON.stringify(obj),
       headers: {
@@ -52,6 +52,7 @@ function RegisterModal({ onClose, onLoginClick }) {
           </button>
           <div className="px-6 py-6 lg:px-8">
             <h3 className="mb-4 text-xl font-medium  text-white">Sign up to Dialkro</h3>
+            
             <form onSubmit={handleSubmit} className="space-y-6" action="#">
               {/* Form inputs and submit button */}
               <div>
