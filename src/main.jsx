@@ -522,6 +522,7 @@ const router = createBrowserRouter([
     path: '/electricalcomponents',
     element: <ElectricalComponents />
   }
+
 ])
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
