@@ -16,7 +16,7 @@ function RegisterModal({ onClose, onLoginClick }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    let postuserInfo = await fetch('http://localhost:4000/register/user', {
+    let postuserInfo = await fetch('process.env.REACT_APP_URL/register/user', {
       method: 'post',
       body: JSON.stringify(obj),
       headers: {
