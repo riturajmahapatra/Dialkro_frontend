@@ -35,7 +35,7 @@ const SearchBar = () => {
     },
     {
       images: '/doctors/dentist.webp',
-      prompt: 'Cardiologists'
+      prompt: 'Dentist'
     },
     {
       images: '/doctors/dermatologists.webp',
