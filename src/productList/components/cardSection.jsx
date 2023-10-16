@@ -8,23 +8,8 @@ import { useNavigate } from 'react-router-dom'
 import LoginModal from '../../components/modals/LoginModal' // Adjust the path as needed
 import RegisterModal from '../../components/modals/RegisterModal' // Adjust the path as needed
 
-const CardSection = ({ onClick }) => {
-  // Dynamic Datas
-  const [transport, settransport] = useState([])
-  useEffect(() => {
-    const getData = async () => {
-      let fetchData = await fetch(`${import.meta.env.VITE_REACT_APP}/get/transport`, {
-        method: 'get',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      fetchData = await fetchData.json()
-      settransport(fetchData.gotTransport)
-      console.log(transport)
-    }
-    getData()
-  }, [])
+const CardSection = ({ onClick, companyName, image, rating , subject, description, mobile, transportType, price, hotelName,address }) => {
+ 
 
   const [isToggleMenuOpen, setIsToggleMenuOpen] = useState(false) // State to control the toggle menu
   const [phoneNumber, setPhoneNumber] = useState('+1234567890')
@@ -62,18 +47,16 @@ const CardSection = ({ onClick }) => {
 
   return (
     <div>
-      {transport &&
-        transport.map((item, i) => {
-          return (
+     
             <div
               className="container relative flex w-[90vw] rounded-lg border-2 max-md:flex-col"
-              key={item._id}>
+              >
               <div className=" relative flex w-[90vw] gap-5 p-5 max-md:flex-col">
                 <div className=" h-60 overflow-hidden bg-white shadow-lg">
                   <img
                     className="h-60 w-full cursor-pointer rounded-lg object-cover"
                     onClick={onClick}
-                    src={item.image}
+                    src={image}
                     alt="Card Image"
                   />
                 </div>
@@ -82,17 +65,21 @@ const CardSection = ({ onClick }) => {
                     <p onClick={onClick} className="cursor-pointer text-xl font-bold capitalize">
                       {' '}
                       {/* {faker.commerce.productName()}{' '} */}
-                      {item.companyName}
+                      {companyName}
                     </p>
-                    <Rating name="read-only" value={item.rating} readOnly />
+                    <p>{hotelName}</p>
+                    <Rating name="read-only" value={rating} readOnly />
                     <p className="cursor-pointer text-lg font-bold uppercase">
-                      {faker.company.buzzVerb()}
+                      {/* {faker.company.buzzVerb()} */}
+                      {subject}
                     </p>
                     <p className=" w-3/4 max-md:h-[7vh] max-md:w-[78vw]">
                       {/* {faker.commerce.productDescription().substring(0, 80)} */}
-                      {item.description.substring(0, 80)}
+                      {description}
                     </p>
-                    <h1 className=" text-xl font-bold">₹ {item.price}</h1>
+                    <p className='font-bold'>{transportType}</p>
+                    <h1 className=" text-xl font-bold">₹ {price}</h1>
+                    <p>{address}</p>
                   </div>
                 </div>
                 <div className="flex flex-col gap-16 max-md:flex-row max-md:items-center max-md:justify-center max-md:gap-24">
@@ -194,8 +181,7 @@ const CardSection = ({ onClick }) => {
                 </div>
               </div>
             </div>
-          )
-        })}
+         
     </div>
   )
 }
