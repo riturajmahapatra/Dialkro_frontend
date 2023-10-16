@@ -10,107 +10,107 @@ const SearchBar = () => {
   // Your list of available content
   const availableContent = [
     {
-      images: '/hospitals/ayurvedic.webp',
+      images: '/doctors/ayurvedic.webp',
       prompt: 'Ayurvedic Doctor'
     },
     {
-      images: '/hospitals/bone.webp',
+      images: '/doctors/bone.webp',
       prompt: 'Bone & Joints Doctors'
     },
     {
-      images: '/hospitals/cardiologists.webp',
+      images: '/doctors/cardiologists.webp',
       prompt: 'Cardiologists'
     },
     {
-      images: '/hospitals/chest.webp',
+      images: '/doctors/chest.webp',
       prompt: 'Chest Specialists'
     },
     {
-      images: '/hospitals/child.webp',
+      images: '/doctors/child.webp',
       prompt: 'Child Specialists Doctors'
     },
     {
-      images: '/hospitals/cosmetic.webp',
+      images: '/doctors/cosmetic.webp',
       prompt: 'Cosmetic Surgeons'
     },
     {
-      images: '/hospitals/dentist.webp',
+      images: '/doctors/dentist.webp',
       prompt: 'Cardiologists'
     },
     {
-      images: '/hospitals/dermatologists.webp',
+      images: '/doctors/dermatologists.webp',
       prompt: 'Dermatologists'
     },
     {
-      images: '/hospitals/diabetologists.webp',
+      images: '/doctors/diabetologists.webp',
       prompt: 'Diabetologists'
     },
     {
-      images: '/hospitals/dietitians.webp',
+      images: '/doctors/dietitians.webp',
       prompt: 'Dietitians'
     },
     {
-      images: '/hospitals/ent.webp',
+      images: '/doctors/ent.webp',
       prompt: 'ENT Specialists'
     },
     {
-      images: '/hospitals/eye.webp',
+      images: '/doctors/eye.webp',
       prompt: 'Eye Specialists'
     },
     {
-      images: '/hospitals/gastroenterologists.webp',
+      images: '/doctors/gastroenterologists.webp',
       prompt: 'Gastroenterologists'
     },
     {
-      images: '/hospitals/physicians.webp',
+      images: '/doctors/physicians.webp',
       prompt: 'General Physicians'
     },
     {
-      images: '/hospitals/gynaecologists.webp',
+      images: '/doctors/gynaecologists.webp',
       prompt: 'Gynaecologists & Obstetricians'
     },
     {
-      images: '/hospitals/homeopathic.webp',
+      images: '/doctors/homeopathic.webp',
       prompt: 'Homeopathic Doctors'
     },
     {
-      images: '/hospitals/neonatologists.webp',
+      images: '/doctors/neonatologists.webp',
       prompt: 'Neonatologists'
     },
     {
-      images: '/hospitals/neurologists.webp',
+      images: '/doctors/neurologists.webp',
       prompt: 'Neurologists'
     },
     {
-      images: '/hospitals/neurosurgeons.webp',
+      images: '/doctors/neurosurgeons.webp',
       prompt: 'Neurosurgeons'
     },
     {
-      images: '/hospitals/oncologists.webp',
+      images: '/doctors/oncologists.webp',
       prompt: 'Oncologists'
     },
     {
-      images: '/hospitals/oncall.webp',
+      images: '/doctors/oncall.webp',
       prompt: 'On Call Doctors'
     },
     {
-      images: '/hospitals/ophthalmologists.webp',
+      images: '/doctors/ophthalmologists.webp',
       prompt: 'Ophthalmologists'
     },
     {
-      images: '/hospitals/orthopaedic.webp',
+      images: '/doctors/orthopaedic.webp',
       prompt: 'Orthopaedic Doctors'
     },
     {
-      images: '/hospitals/paediatricians.webp',
+      images: '/doctors/paediatricians.webp',
       prompt: 'Paediatricians'
     },
     {
-      images: '/hospitals/physiotherapists.webp',
+      images: '/doctors/physiotherapists.webp',
       prompt: 'Physiotherapists'
     },
     {
-      images: '/hospitals/skin.webp',
+      images: '/doctors/skin.webp',
       prompt: 'Skin & Hair Doctors'
     }
   ]
