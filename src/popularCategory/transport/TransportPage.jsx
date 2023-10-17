@@ -31,7 +31,7 @@ const TransportPage = () => {
        settransport(fetchData.gotTransport)
        console.log(transport)
      }
-     getData()
+     getData();
    }, [])
   return (
     <div>
@@ -43,7 +43,15 @@ const TransportPage = () => {
         {
 transport && transport.map((item,i)=>{
   return(
-<CardSection companyName={item.companyName} image={item.image} rating={item.rating} transportType={item.transportType} description={item.description} price={item.price}  onClick={() => navigate('/transport/Product_Detail')} />
+<CardSection
+ companyName={item.companyName}
+  image={item.image}
+   rating={item.rating}
+    transportType={item.transportType}
+     description={item.description}
+      price={item.price}
+        onClick={() => navigate('/transport/Product_Detail')}
+         />
   )
 })
         

@@ -42,7 +42,16 @@ const AstrologerPage = () => {
       <div className=" my-5 grid  items-center justify-center gap-5">
         {astrologer &&
           astrologer.map((item, i) => {
-            return <CardSection companyName={item.companyName} image={item.image} rating={item.rating} price={item.price} subject={item.subject} description={item.description} mobile={item.mobile} onClick={() => navigate('/astrologer/Product_Detail')} />
+            return <CardSection
+             companyName={item.companyName}
+              image={item.image}
+               rating={item.rating}
+                price={item.price}
+                 subject={item.subject}
+                  description={item.description}
+                   mobile={item.mobile}
+                    onClick={() => navigate('/astrologer/Product_Detail')} 
+                    />
           })}
 
         {/* <CardSection onClick={() => navigate('/astrologer/Product_Detail')} />
