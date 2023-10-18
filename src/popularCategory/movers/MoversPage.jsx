@@ -42,7 +42,14 @@ const MoversPage = () => {
       <div className=" my-5 grid  items-center justify-center gap-5">
         {movers &&
           movers.map((item, i) => {
-            return <CardSection companyName={item.companyName} image={item.image} rating={item.rating} description={item.description} price={item.price} onClick={() => navigate('/movers/Product_Detail')} />
+            return <CardSection
+             companyName={item.companyName}
+              image={item.image}
+               rating={item.rating}
+                description={item.description}
+                 price={item.price}
+                  onClick={() => navigate('/movers/Product_Detail')} 
+                  />
           })}
 
         {/* <CardSection onClick={() => navigate('/movers/Product_Detail')} />

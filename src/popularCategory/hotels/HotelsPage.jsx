@@ -43,7 +43,15 @@ const HotelsPage = () => {
         {hotel &&
           hotel.map((item, i) => {
             return (
-              <CardSection hotelName={item.hotelName} address={item.address} price={`${item.price}/day`} image={item.image} description={item.description} rating={item.rating} onClick={() => navigate('/hotel/Product_Detail')} />
+              <CardSection
+               hotelName={item.hotelName}
+                address={item.address}
+                 price={`${item.price}/day`}
+                  image={item.image}
+                   description={item.description}
+                    rating={item.rating}
+                     onClick={() => navigate('/hotel/Product_Detail')} 
+                    />
             )
           })}
           

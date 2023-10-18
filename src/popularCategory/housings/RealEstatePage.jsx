@@ -45,7 +45,14 @@ const RealEstatePage = () => {
         {
           commercial && commercial.map((item,i)=>{
             return (
-              <CardSection key={item._id} companyName={item.companyName} description={item.description} image={item.image} price={item.price} rating={item.rating} onClick={() => navigate('/housings/Product_Detail')} />
+              <CardSection
+               key={item._id}
+                companyName={item.companyName}
+                 description={item.description}
+                  image={item.image}
+                   price={item.price}
+                    rating={item.rating}
+                     onClick={() => navigate('/housings/Product_Detail')} />
             )
           })
         }

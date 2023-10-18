@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import LoginModal from '../../components/modals/LoginModal' // Adjust the path as needed
 import RegisterModal from '../../components/modals/RegisterModal' // Adjust the path as needed
 
-const CardSection = ({ onClick, companyName, image, rating , subject, description, mobile, transportType, price, hotelName,address }) => {
+const CardSection = ({ onClick, companyName, image, rating , subject, description, mobile, gymName, dentistName, transportType, price, charges, hotelName,address, hostelName }) => {
  
 
   const [isToggleMenuOpen, setIsToggleMenuOpen] = useState(false) // State to control the toggle menu
@@ -66,6 +66,9 @@ const CardSection = ({ onClick, companyName, image, rating , subject, descriptio
                       {' '}
                       {/* {faker.commerce.productName()}{' '} */}
                       {companyName}
+                      {dentistName}
+                      {gymName}
+                      {hostelName}
                     </p>
                     <p>{hotelName}</p>
                     <Rating name="read-only" value={rating} readOnly />
@@ -78,7 +81,10 @@ const CardSection = ({ onClick, companyName, image, rating , subject, descriptio
                       {description}
                     </p>
                     <p className='font-bold'>{transportType}</p>
-                    <h1 className=" text-xl font-bold">₹ {price}</h1>
+                    <h1 className=" text-xl font-bold">
+                      ₹ {price}
+                      {charges}
+                      </h1>
                     <p>{address}</p>
                   </div>
                 </div>
