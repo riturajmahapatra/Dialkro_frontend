@@ -48,7 +48,15 @@ const TravelsPage = () => {
         {
           travel && travel.map((item,i)=>{
             return (
-              <CardSection key={item._id} companyName={item.companyName} description={item.description} rating={item.rating} charges={item.charges} image={item.image} onClick={() => navigate('/travels/Product_Detail')} />
+              <CardSection
+               key={item._id}
+                companyName={item.companyName}
+                 description={item.description}
+                  rating={item.rating}
+                   charges={item.charges}
+                    image={item.image}
+                     onClick={() => navigate('/travels/Product_Detail')} 
+                    />
             )
           })
         }
