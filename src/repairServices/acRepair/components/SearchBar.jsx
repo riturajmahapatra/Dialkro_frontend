@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AlignmentSubCards from '../../../components/ui/AlignmentSubCard'
@@ -8,6 +8,24 @@ const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [visibleContentCount, setVisibleContentCount] = useState(5)
   // Your list of available content
+
+  // Dynamic data for Ac Repair
+  const [acData, setacData] = useState([])
+  useEffect(()=>{
+    const getAc = async ()=>{
+      let fetchAc = await fetch(`${import.meta.env.VITE_REACT_APP}/get/acrepair/service`, {
+        method:'get',
+        headers:{
+          'Content-Type': 'application/json'
+        }
+      });
+      fetchAc = await fetchAc.json();
+      // console.log(fetchAc);
+      setacData(fetchAc.gotAcService);
+      console.log(acData)
+    }
+    getAc();
+  },[])
   const availableContent = [
     {
       images: '/ac/ac1.webp',
@@ -131,15 +149,35 @@ const SearchBar = () => {
     return (
       <div className="flex w-full flex-col items-center justify-center">
         <div className=" grid items-center justify-center gap-7 max-sm:grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-          {filteredContent.slice(0, visibleContentCount).map((content, index) => (
+          {/* {filteredContent.slice(0, visibleContentCount).map((content, index) => (
             <div key={index}>
               <AlignmentSubCards
                 images={content.images}
                 prompt={content.prompt}
                 onClick={'/acRepair'}
               />
+
+             
             </div>
-          ))}
+          ))} */}
+
+{
+  acData?.map((item,i)=>{
+    return(
+      <AlignmentSubCards
+      
+               key={item._id}
+                companyName={item.companyName}
+                image={item.image}
+                description={item.description}
+                charges={item.charges}
+                onClick={'/acRepair'}
+      />
+    )
+  })
+}
+
+
         </div>
         {filteredContent.length > visibleContentCount && (
           <div className="mt-7 flex items-end justify-end">
