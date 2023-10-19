@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Nav from '../../components/Navbar/Nav'
 import { Outlet, useNavigate } from 'react-router-dom'
 import Footer from '../../components/Footer/Footer'
@@ -16,7 +16,36 @@ const AcRepairPage = () => {
     `ACCarousel/${ac} (5).webp`
   ]
 
-  const navigate = useNavigate()
+ 
+
+  const navigate = useNavigate();
+
+  // dynamic data for ac Repairing
+  const [repairData, setrepairData] = useState([]);
+
+  
+
+  useEffect(()=>{
+    const getAc = async ()=>{
+      let fetchAc = await fetch(`${import.meta.env.VITE_REACT_APP}/get/acrepair/service`,{
+        method:'get',
+        headers:{
+          'Content-Type': 'application/json'
+        }
+      });
+      fetchAc = await fetchAc.json();
+      // console.log(fetchAc.gotAcService);
+      setrepairData(fetchAc.gotAcService);
+     
+    }
+    getAc()
+  },[])
+
+  
+ const filteredData = repairData.filter((item)=>item.companyName === 'voltas');
+ console.log(filteredData)
+ 
+        
   return (
     <div>
       <Outlet />
@@ -25,12 +54,25 @@ const AcRepairPage = () => {
 
       <BannerCarousel images={images} />
       <div className=" my-5 grid  items-center justify-center gap-5">
+        {
+          filteredData?.map((item,i)=>{
+            return (
+              <CardSection
+               companyName={item.companyName}
+                image={item.image}
+                 rating={item.rating}
+                  description={item.description}
+                   onClick={() => navigate('/acRepairPage/Product_Detail')}
+                   />
+            )
+          })
+        }
+        
+        {/* <CardSection onClick={() => navigate('/acRepairPage/Product_Detail')} />
         <CardSection onClick={() => navigate('/acRepairPage/Product_Detail')} />
         <CardSection onClick={() => navigate('/acRepairPage/Product_Detail')} />
         <CardSection onClick={() => navigate('/acRepairPage/Product_Detail')} />
-        <CardSection onClick={() => navigate('/acRepairPage/Product_Detail')} />
-        <CardSection onClick={() => navigate('/acRepairPage/Product_Detail')} />
-        <CardSection onClick={() => navigate('/acRepairPage/Product_Detail')} />
+        <CardSection onClick={() => navigate('/acRepairPage/Product_Detail')} /> */}
       </div>
       <Footer />
     </div>
