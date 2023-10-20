@@ -1,15 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
 
-const AlignmentSubCards = ({
-  images,
-  prompt,
-  onClick,
-  companyName,
-  description,
-  charges,
-  image
-}) => {
+const AlignmentSubCards = ({ images, prompt, onClick, companyName }) => {
   return (
     <div className=" z-10 flex duration-500 hover:scale-110">
       <div className="relative flex h-44 flex-col items-start justify-start p-3">
