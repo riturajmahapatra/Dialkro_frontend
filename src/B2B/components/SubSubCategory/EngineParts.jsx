@@ -22,7 +22,7 @@ const EngineParts = () => {
         <div className=" flex items-center justify-center gap-5 max-lg:flex-wrap ">
           <AlignmentSubCards
             images={`/b2bSubSubCategory/camshaft.webp`}
-            prompt={`camshaft`}
+            prompt={`camshafts`}
             onClick={'/b2b'}
           />
           <AlignmentSubCards
