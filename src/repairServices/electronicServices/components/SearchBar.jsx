@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AlignmentSubCards from '../../../components/ui/AlignmentSubCard'
@@ -6,7 +6,11 @@ import AlignmentSubCards from '../../../components/ui/AlignmentSubCard'
 const SearchBar = () => {
   const navigate = useNavigate()
   const [searchTerm, setSearchTerm] = useState('')
-  const [visibleContentCount, setVisibleContentCount] = useState(5)
+  const [visibleContentCount, setVisibleContentCount] = useState(5);
+
+ // Dynamic Data for electronic category
+ 
+
   // Your list of available content
 
   const availableContent = [

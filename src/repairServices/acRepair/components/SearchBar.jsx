@@ -6,11 +6,18 @@ import AlignmentSubCards from '../../../components/ui/AlignmentSubCard'
 const SearchBar = () => {
   const navigate = useNavigate()
   const [searchTerm, setSearchTerm] = useState('')
-  const [visibleContentCount, setVisibleContentCount] = useState(5)
+  const [visibleContentCount, setVisibleContentCount] = useState(5);
+  
   // Your list of available content
 
   // Dynamic data for Ac Repair
-  const [acData, setacData] = useState([])
+  const [displayContent , setdisplayContent] = useState(5);
+  const [acData, setacData] = useState([]);
+  const [searchVal , setsearchVal] = useState('')
+
+  const filterAcdata = acData.filter((item)=>item.companyName.toLowerCase().includes(searchVal.toLowerCase()) );
+
+  console.log(filterAcdata)
   useEffect(()=>{
     const getAc = async ()=>{
       let fetchAc = await fetch(`${import.meta.env.VITE_REACT_APP}/get/acrepair/service`, {
@@ -26,6 +33,10 @@ const SearchBar = () => {
     }
     getAc();
   },[])
+
+
+ 
+
   const availableContent = [
     {
       images: '/ac/ac1.webp',
@@ -162,16 +173,16 @@ const SearchBar = () => {
           ))} */}
 
 {
-  acData?.map((item,i)=>{
+  filterAcdata?.map((item,i)=>{
     return(
       <AlignmentSubCards
-      
+              acInfo={acData}
                key={item._id}
                 companyName={item.companyName}
                 image={item.image}
                 description={item.description}
                 charges={item.charges}
-                onClick={'/acRepair'}
+                onClick={`/acRepair/${item.companyName}`}
       />
     )
   })
@@ -179,7 +190,7 @@ const SearchBar = () => {
 
 
         </div>
-        {filteredContent.length > visibleContentCount && (
+        {/* {filteredContent.length > visibleContentCount && (
           <div className="mt-7 flex items-end justify-end">
             <button
               onClick={handleViewMoreClick}
@@ -187,7 +198,9 @@ const SearchBar = () => {
               View More Category
             </button>
           </div>
-        )}
+        )} */}
+
+
       </div>
     )
   }
@@ -213,8 +226,8 @@ const SearchBar = () => {
               type="text"
               placeholder="Search"
               className="w-full rounded-md border bg-gray-50 py-2 pl-12 pr-4 text-gray-500 outline-none focus:border-indigo-600 focus:bg-white"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              value={searchVal}
+              onChange={(e) => setsearchVal(e.target.value)}
               onBlur={redirectToFirstSuggestion}
               onKeyDown={handleEnterKeyPress}
             />
