@@ -282,7 +282,7 @@ const router = createBrowserRouter([
     element: <PetShopPage />
   },
   {
-    path: '/acRepair',
+    path: '/acRepair/:name',
     element: <AcRepairPage />
   },
   {
@@ -290,7 +290,7 @@ const router = createBrowserRouter([
     element: <SubCategoryAcPage />
   },
   {
-    path: '/carCare',
+    path: '/carCare/:name',
     element: <CarCarePage />
   },
   {

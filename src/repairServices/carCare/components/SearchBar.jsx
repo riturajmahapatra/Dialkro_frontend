@@ -1,12 +1,45 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import AlignmentSubCards from '../../../components/ui/AlignmentSubCard'
+import AlignmentSubCards from '../../../components/ui/AlignmentSubCard';
+import { useParams } from 'react-router-dom';
 
 const SearchBar = () => {
   const navigate = useNavigate()
   const [searchTerm, setSearchTerm] = useState('')
   const [visibleContentCount, setVisibleContentCount] = useState(5)
+
+  // Dynamic car care data
+  const params = useParams();
+  const company = params.name;
+  const [searchcar, setsearchcar] = useState('');
+  const [carservice, setcarservice] = useState([]);
+  
+  
+
+  
+  useEffect(()=>{
+    const getcarData = async ()=>{
+      let fetchCar = await fetch(`${import.meta.env.VITE_REACT_APP}/get/carcare/service`, {
+        method:'get',
+        headers:{
+          'Content-Type':'application/json'
+        }
+      });
+      fetchCar = await fetchCar.json();
+     setcarservice(fetchCar.gotcarCare);
+     console.log(carservice)
+    };
+    getcarData();
+  }, [])
+
+   
+  const filterCar = carservice.filter((item)=>item.companyName.toLowerCase().includes(searchcar.toLowerCase()));
+  
+  
+   
+    
+  
   // Your list of available content
   const availableContent = [
     {
@@ -187,7 +220,7 @@ const SearchBar = () => {
     return (
       <div className="flex w-full flex-col items-center justify-center">
         <div className=" grid items-center justify-center gap-7 max-sm:grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-          {filteredContent.slice(0, visibleContentCount).map((content, index) => (
+          {/* {filteredContent.slice(0, visibleContentCount).map((content, index) => (
             <div key={index}>
               <AlignmentSubCards
                 images={content.images}
@@ -195,7 +228,24 @@ const SearchBar = () => {
                 onClick={'/carCare'}
               />
             </div>
-          ))}
+          ))} */}
+
+          {
+            filterCar?.map((item,i)=>{
+              return(
+                <AlignmentSubCards
+                key={item._id}
+                companyName={item.companyName}
+                image={item.image}
+                rating={item.rating}
+                charges={item.charges}
+                onClick={`/carCare/${item.companyName}`}
+                />
+              )
+            })
+          }
+
+
         </div>
         {filteredContent.length > visibleContentCount && (
           <div className="mt-7 flex items-end justify-end">
@@ -231,8 +281,8 @@ const SearchBar = () => {
               type="text"
               placeholder="Search"
               className="w-full rounded-md border bg-gray-50 py-2 pl-12 pr-4 text-gray-500 outline-none focus:border-indigo-600 focus:bg-white"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              value={searchcar}
+              onChange={(e) => setsearchcar(e.target.value)}
               onBlur={redirectToFirstSuggestion}
               onKeyDown={handleEnterKeyPress}
             />

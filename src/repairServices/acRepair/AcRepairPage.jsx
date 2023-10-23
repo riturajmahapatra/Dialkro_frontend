@@ -4,8 +4,12 @@ import { Outlet, useNavigate } from 'react-router-dom'
 import Footer from '../../components/Footer/Footer'
 import CardSection from '../../productList/components/cardSection'
 import { Toaster } from 'react-hot-toast'
-import BannerCarousel from '../../components/Body/Carousel/BannerCarousel'
-const AcRepairPage = () => {
+import BannerCarousel from '../../components/Body/Carousel/BannerCarousel';
+import { useParams } from 'react-router-dom';
+
+const AcRepairPage = ({acInfo}) => {
+
+  
   const ac = 'ac'
 
   const images = [
@@ -21,6 +25,9 @@ const AcRepairPage = () => {
   const navigate = useNavigate();
 
   // dynamic data for ac Repairing
+  const params = useParams();
+  const company = params.name;
+  
   const [repairData, setrepairData] = useState([]);
 
   
@@ -38,13 +45,13 @@ const AcRepairPage = () => {
       setrepairData(fetchAc.gotAcService);
      
     }
-    getAc()
+    getAc();
   },[])
 
   
- const filteredData = repairData.filter((item)=>item.companyName === 'voltas');
- console.log(filteredData)
- 
+ const filteredData = repairData.filter((item)=>item.companyName === company);
+//  console.log(filteredData)
+
         
   return (
     <div>
