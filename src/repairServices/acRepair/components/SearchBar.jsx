@@ -8,6 +8,7 @@ const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [visibleContentCount, setVisibleContentCount] = useState(5);
   
+  
   // Your list of available content
 
   // Dynamic data for Ac Repair
@@ -16,8 +17,8 @@ const SearchBar = () => {
   const [searchVal , setsearchVal] = useState('')
 
   const filterAcdata = acData.filter((item)=>item.companyName.toLowerCase().includes(searchVal.toLowerCase()) );
-
-  console.log(filterAcdata)
+   
+  
   useEffect(()=>{
     const getAc = async ()=>{
       let fetchAc = await fetch(`${import.meta.env.VITE_REACT_APP}/get/acrepair/service`, {
@@ -27,14 +28,16 @@ const SearchBar = () => {
         }
       });
       fetchAc = await fetchAc.json();
-      // console.log(fetchAc);
       setacData(fetchAc.gotAcService);
-      console.log(acData)
     }
     getAc();
   },[])
 
-
+  
+  // VIEW MORE
+  const ViewMore = ()=>{
+    setdisplayContent((prevCount)=>prevCount+5)
+  }
  
 
   const availableContent = [
@@ -152,10 +155,10 @@ const SearchBar = () => {
       )
     }
 
-    const handleViewMoreClick = () => {
-      // Show 5 more cards when the "View More" button is clicked
-      setVisibleContentCount((prevCount) => prevCount + 5)
-    }
+    // const handleViewMoreClick = () => {
+    //   // Show 5 more cards when the "View More" button is clicked
+    //   setVisibleContentCount((prevCount) => prevCount + 5)
+    // }
 
     return (
       <div className="flex w-full flex-col items-center justify-center">
@@ -173,7 +176,7 @@ const SearchBar = () => {
           ))} */}
 
 {
-  filterAcdata?.map((item,i)=>{
+  filterAcdata?.slice(0, displayContent).map((item,i)=>{
     return(
       <AlignmentSubCards
               acInfo={acData}
@@ -199,6 +202,16 @@ const SearchBar = () => {
             </button>
           </div>
         )} */}
+
+{filterAcdata.length > displayContent && (
+          <div className="mt-7 flex items-end justify-end">
+            <button
+              onClick={ViewMore}
+              className="h-10 w-40 rounded-md bg-blue-500 text-white hover:bg-blue-400">
+              View More Category
+            </button>
+          </div>
+        )}
 
 
       </div>

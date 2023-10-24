@@ -14,6 +14,8 @@ const SearchBar = () => {
   const company = params.name;
   const [searchcar, setsearchcar] = useState('');
   const [carservice, setcarservice] = useState([]);
+
+  const [displayContent, setdisplayContent] = useState(4)
   
   
 
@@ -35,8 +37,10 @@ const SearchBar = () => {
 
    
   const filterCar = carservice.filter((item)=>item.companyName.toLowerCase().includes(searchcar.toLowerCase()));
-  
-  
+  // view More
+  const showMore = ()=>{
+    setdisplayContent((prevCount)=>prevCount+5);
+  }
    
     
   
@@ -212,10 +216,10 @@ const SearchBar = () => {
       )
     }
 
-    const handleViewMoreClick = () => {
-      // Show 5 more cards when the "View More" button is clicked
-      setVisibleContentCount((prevCount) => prevCount + 5)
-    }
+    // const handleViewMoreClick = () => {
+    //   // Show 5 more cards when the "View More" button is clicked
+    //   setVisibleContentCount((prevCount) => prevCount + 5)
+    // }
 
     return (
       <div className="flex w-full flex-col items-center justify-center">
@@ -231,7 +235,7 @@ const SearchBar = () => {
           ))} */}
 
           {
-            filterCar?.map((item,i)=>{
+            filterCar?.slice(0, displayContent).map((item,i)=>{
               return(
                 <AlignmentSubCards
                 key={item._id}
@@ -247,7 +251,8 @@ const SearchBar = () => {
 
 
         </div>
-        {filteredContent.length > visibleContentCount && (
+
+        {/* {filteredContent.length > visibleContentCount && (
           <div className="mt-7 flex items-end justify-end">
             <button
               onClick={handleViewMoreClick}
@@ -255,7 +260,22 @@ const SearchBar = () => {
               View More Category
             </button>
           </div>
-        )}
+        )} */}
+
+        {
+          filterCar.length > displayContent && (
+            <div className="mt-7 flex items-end justify-end">
+            <button
+              onClick={showMore}
+              className="h-10 w-40 rounded-md bg-blue-500 text-white hover:bg-blue-400">
+              View More Category
+            </button>
+          </div>
+          )
+        }
+
+
+
       </div>
     )
   }
