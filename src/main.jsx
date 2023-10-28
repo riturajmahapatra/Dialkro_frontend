@@ -298,7 +298,7 @@ const router = createBrowserRouter([
     element: <SubCategoryCarPage />
   },
   {
-    path: '/electronicServices',
+    path: '/electronicServices/:name',
     element: <ElectronicServicesPage />
   },
   {
@@ -306,7 +306,7 @@ const router = createBrowserRouter([
     element: <SubCategoryElectronicPage />
   },
   {
-    path: '/washingMachine',
+    path: '/washingMachine/:name',
     element: <WashingMachinePage />
   },
   {

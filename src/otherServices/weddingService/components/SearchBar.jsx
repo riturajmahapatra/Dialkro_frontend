@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AlignmentSubCards from '../../../components/ui/AlignmentSubCard'
@@ -54,6 +54,10 @@ const SearchBar = () => {
       prompt: 'Trade Fair Organiser'
     }
   ]
+
+  // Dynamic data for Wedding
+  
+ 
 
   const filteredContent = availableContent.filter((content) =>
     content.prompt.toLowerCase().includes(searchTerm.toLowerCase())
