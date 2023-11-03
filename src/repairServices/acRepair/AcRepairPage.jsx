@@ -28,7 +28,7 @@ const AcRepairPage = ({acInfo}) => {
   const params = useParams();
   const company = params.name;
   
-  const [repairData, setrepairData] = useState([]);
+  const [repairData, setrepairData] = useState([]);    
 
   
 

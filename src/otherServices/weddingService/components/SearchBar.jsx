@@ -4,8 +4,9 @@ import { useNavigate } from 'react-router-dom'
 import AlignmentSubCards from '../../../components/ui/AlignmentSubCard'
 
 const SearchBar = () => {
-  const navigate = useNavigate()
-  const [searchTerm, setSearchTerm] = useState('')
+  const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState('');
+  const [viewmore , setviewmore] = useState(4);
   const [visibleContentCount, setVisibleContentCount] = useState(5)
   // Your list of available content
   const availableContent = [
@@ -56,8 +57,36 @@ const SearchBar = () => {
   ]
 
   // Dynamic data for Wedding
+  const [eventData, seteventData] = useState([])
+  const [searchVal , setsearchVal] = useState('')
+
+  const filteredEvent = eventData.filter((item)=>item.eventName.toLowerCase().includes(searchVal) );
+  console.log(filteredEvent)
+
+  useEffect(() => {
+    const getEvent = async () => {
+      let fetchEvent = await fetch(`${import.meta.env.VITE_REACT_APP}/get/event/info`, {
+        method: 'get',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      fetchEvent = await fetchEvent.json()
+      // console.log(fetchEvent);
+      seteventData(fetchEvent.gettingEvent)
+    }
+    getEvent()
+  }, [])
+
   
  
+  // vewMore
+  const handleviewmore = ()=>{
+    setviewmore((prevCount)=>prevCount + 5)
+  }
+
+
+
 
   const filteredContent = availableContent.filter((content) =>
     content.prompt.toLowerCase().includes(searchTerm.toLowerCase())
@@ -99,25 +128,28 @@ const SearchBar = () => {
     return (
       <div className="flex w-full flex-col items-center justify-center gap-5">
         <div className=" grid items-center justify-center gap-7 max-sm:grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-          {filteredContent.slice(0, visibleContentCount).map((content, index) => (
-            <div key={index}>
+          {filteredEvent?.slice(0, viewmore).map((item, i) => {
+            return (
               <AlignmentSubCards
-                images={content.images}
-                prompt={content.prompt}
-                onClick={'/weddingandeventservices'}
+              key={item._id}
+                image={item.image}
+                prompt={item.eventName}
+                onClick={`/weddingandeventservices/${item.eventName}`}
               />
-            </div>
-          ))}
+            )
+          })}
         </div>
-        {filteredContent.length > visibleContentCount && (
-          <div className="mt-7 flex items-end justify-end">
+       {
+        filteredEvent.length > viewmore && 
+
+        <div className="mt-7 flex items-end justify-end">
             <button
-              onClick={handleViewMoreClick}
+              onClick={handleviewmore}
               className="h-10 w-40 rounded-md bg-blue-500 text-white hover:bg-blue-400">
               View More Category
             </button>
           </div>
-        )}
+       }
       </div>
     )
   }
@@ -143,8 +175,8 @@ const SearchBar = () => {
               type="text"
               placeholder="Search"
               className="w-full rounded-md border bg-gray-50 py-2 pl-12 pr-4 text-gray-500 outline-none focus:border-indigo-600 focus:bg-white"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              value={searchVal}
+              onChange={(e) => setsearchVal(e.target.value)}
               onBlur={redirectToFirstSuggestion}
               onKeyDown={handleEnterKeyPress}
             />

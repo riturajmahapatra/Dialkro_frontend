@@ -84,6 +84,9 @@ import Foodie from './popularCategory/restaurant/components/Foodie'
 import Dessert from './popularCategory/restaurant/components/Dessert'
 import SubCategoryDoctorsPage from './Doctor/components/SubCategory/SubCategoryDoctorsPage'
 import DoctorsPage from './Doctor/DoctorsPage'
+import AgriculturalToolPage from './B2B/components/SubSubCategory/AgriculturalToolPage'
+import Machinerypage from './B2B/components/SubSubCategory/Machinerypage'
+import ElectricComp from './B2B/components/SubSubCategory/ElectricComp'
 
 const router = createBrowserRouter([
   {
@@ -226,7 +229,7 @@ const router = createBrowserRouter([
     element: <CouriersPage />
   },
   {
-    path: '/hospitals',
+    path: '/hospitals/:name',
     element: <HospitalsPage />
   },
   {
@@ -314,7 +317,7 @@ const router = createBrowserRouter([
     element: <SubCategoryWashingMachinePage />
   },
   {
-    path: '/weddingandeventservices',
+    path: '/weddingandeventservices/:name',
     element: <WeddingServices />
   },
   {
@@ -403,11 +406,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/hostels/Product_Detail',
-    element: <ProductDetailPage />
+    element: <ProductDetailPage />   
   },
   {
     path: '/housings/Product_Detail',
-    element: <ProductDetailPage />
+    element: <ProductDetailPage /> 
   },
   {
     path: '/pestControl/Product_Detail',
@@ -459,7 +462,7 @@ const router = createBrowserRouter([
     element: <SubCategoryb2bPage />
   },
   {
-    path: '/b2b',
+    path: '/b2b/:name',
     element: <B2B />
   },
 
@@ -498,7 +501,7 @@ const router = createBrowserRouter([
     element: <AstrologerPage />
   },
   {
-    path: '/astrologer/Product_Detail',
+    path: '/astrologer/Product_Detail', 
     element: <ProductDetailPage />
   },
   {
@@ -510,6 +513,17 @@ const router = createBrowserRouter([
     path: '/agriculturetools',
     element: <AgricultureEquipment />
   },
+
+  {
+    path: '/machinarypage/:name',
+    element: <Machinerypage />
+  },
+
+  {
+    path: '/agriculturetoolpage/:name',
+    element: <AgriculturalToolPage />
+  },
+
   {
     path: '/agriculturemachinery',
     element: <AgricultureMachinery />
@@ -521,6 +535,11 @@ const router = createBrowserRouter([
   {
     path: '/electricalcomponents',
     element: <ElectricalComponents />
+  },
+
+  {
+    path: '/componentpage/:name',
+    element: <ElectricComp />
   }
 
 ])

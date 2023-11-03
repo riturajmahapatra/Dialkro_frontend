@@ -27,7 +27,7 @@ const AstrologerPage = () => {
         }
       })
       fetchAstro = await fetchAstro.json()
-      //  console.log(fetchAstro.gotAllstrologists);
+       console.log(fetchAstro);
       setastrologer(fetchAstro.gotAllstrologists)
     }
     getAstrologer()

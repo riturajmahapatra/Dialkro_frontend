@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Nav from '../../../components/Navbar/Nav'
 import Footer from '../../../components/Footer/Footer'
 import BannerCarousel from '../../../components/Body/Carousel/BannerCarousel'
@@ -6,6 +6,7 @@ import AlignmentSubCards from '../../../components/ui/AlignmentSubCard'
 import { useNavigate } from 'react-router-dom'
 
 const AgricultureMachinery = () => {
+
   const navigation = useNavigate()
   const category = 'b2b' // Category name
   const images = [
@@ -14,42 +15,43 @@ const AgricultureMachinery = () => {
     `${category}Carousel/${category}3.webp`
   ]
 
+  // Dynamic data for machinery agriculture
+  const [machinary , setmachinary] = useState([])
+  useEffect(()=>{
+     const getMachinary = async()=>{
+      let fetchMachinary = await fetch(`${import.meta.env.VITE_REACT_APP}/get/b2b/agricultural/machine`,{
+        method:'get',
+        headers:{
+          'Content-Type' : 'application/json'
+        }
+      });
+      fetchMachinary = await fetchMachinary.json();
+      // console.log(fetchMachinary)
+      setmachinary(fetchMachinary.gotAgricultural);
+     }
+     getMachinary();
+  },[])
+
   return (
     <div>
       <Nav services={`B2B`} />
       <BannerCarousel images={images} />
       <div className="mt-10 flex w-full flex-col items-center justify-center gap-5">
         <div className=" flex items-center justify-center gap-5 max-lg:flex-wrap ">
-          <AlignmentSubCards
-            images={`/b2bSubSubCategory/harvester.webp`}
-            prompt={`harvester`}
-            onClick={'/b2b'}
-          />
-          <AlignmentSubCards
-            images={`/b2bSubSubCategory/plough.webp`}
-            prompt={`plough`}
-            onClick={'/b2b'}
-          />
-          <AlignmentSubCards
-            images={`/b2bSubSubCategory/rotavator.webp`}
-            prompt={`rotavator`}
-            onClick={'/b2b'}
-          />
-          <AlignmentSubCards
-            images={`/b2bSubSubCategory/tractor cultivator.webp`}
-            prompt={`tractor cultivator`}
-            onClick={'/b2b'}
-          />
-          <AlignmentSubCards
-            images={`/b2bSubSubCategory/tractor.webp`}
-            prompt={`tractor`}
-            onClick={'/b2b'}
-          />
-          <AlignmentSubCards
-            images={`/b2bSubSubCategory/trailer-wagon.webp`}
-            prompt={`trailer wagon`}
-            onClick={'/b2b'}
-          />
+
+          {
+            machinary?.map((item,i)=>{
+              return (
+                <AlignmentSubCards
+                image={item.image}
+                prompt={item.machineName}
+                onClick={`/machinarypage/${item.machineName}`}
+              />
+              )
+            })
+          }
+         
+     
         </div>
       </div>
       <Footer />

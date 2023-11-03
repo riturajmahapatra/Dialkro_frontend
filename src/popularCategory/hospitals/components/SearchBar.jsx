@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AlignmentSubCards from '../../../components/ui/AlignmentSubCard'
@@ -7,6 +7,34 @@ const SearchBar = () => {
   const navigate = useNavigate()
   const [searchTerm, setSearchTerm] = useState('')
   const [visibleContentCount, setVisibleContentCount] = useState(5)
+
+  // Dynamic data for Hospital
+  const [hospital, sethospital] = useState([]);
+  const [searchVal , setsearchVal] = useState('');
+  const [viewmore , setviewmore] = useState(4);
+
+  useEffect(() => {
+    const getHospital = async (req, res) => {
+      let fetchHospital = await fetch(`${import.meta.env.VITE_REACT_APP}/get/all/hospital`, {
+        method: 'get',
+        headers: {
+          'Content-type': 'application/json'
+        }
+      })
+      fetchHospital = await fetchHospital.json()
+      console.log(fetchHospital.allHospital)
+      sethospital(fetchHospital.allHospital)
+    }
+    getHospital()
+  }, []);
+
+  const filterCategory = hospital.filter((item)=>item.specialisation.toLowerCase().includes(searchVal.toLowerCase()));
+
+  // view More function
+  const handleViewmore = ()=>{
+    setviewmore((prevCount)=>prevCount+5);
+  }
+
   // Your list of available content
   const availableContent = [
     {
@@ -87,7 +115,7 @@ const SearchBar = () => {
     return (
       <div className="flex w-full flex-col items-center justify-center gap-5">
         <div className=" grid items-center justify-center gap-7 max-sm:grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-          {filteredContent.slice(0, visibleContentCount).map((content, index) => (
+          {/* {filteredContent.slice(0, visibleContentCount).map((content, index) => (
             <div key={index}>
               <AlignmentSubCards
                 images={content.images}
@@ -95,9 +123,22 @@ const SearchBar = () => {
                 onClick={'/hospitals'}
               />
             </div>
-          ))}
+          ))} */}
+
+          {filterCategory &&
+            filterCategory.slice(0, viewmore).map((item, i) => {
+              return (
+                <div key={item._id}>
+                  <AlignmentSubCards
+                    image={item.image}
+                    specialisation={item.specialisation}
+                    onClick={`/hospitals/${item.specialisation}`}
+                  />
+                </div>
+              )
+            })}
         </div>
-        {filteredContent.length > visibleContentCount && (
+        {/* {filteredContent.length > visibleContentCount && (
           <div className=" mt-7 flex items-end justify-end">
             <button
               onClick={handleViewMoreClick}
@@ -105,7 +146,20 @@ const SearchBar = () => {
               View More Category
             </button>
           </div>
-        )}
+        )} */}
+
+        {
+          hospital.length > viewmore && 
+          <div className=" mt-7 flex items-end justify-end">
+          <button
+            onClick={handleViewmore}
+            className="h-10 w-40 rounded-md bg-blue-500 text-white hover:bg-blue-400">
+            View More Category
+          </button>
+        </div>
+        }
+
+
       </div>
     )
   }
@@ -131,8 +185,8 @@ const SearchBar = () => {
               type="text"
               placeholder="Search"
               className="w-full rounded-md border bg-gray-50 py-2 pl-12 pr-4 text-gray-500 outline-none focus:border-indigo-600 focus:bg-white"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              value={searchVal}
+              onChange={(e) => setsearchVal(e.target.value)}
               onBlur={redirectToFirstSuggestion}
               onKeyDown={handleEnterKeyPress}
             />
