@@ -349,7 +349,7 @@ const router = createBrowserRouter([
     element: <SubCategoryWeddingServicesPage />
   },
   {
-    path: '/education',
+    path: '/education/:name',
     element: <Education />
   },
   {

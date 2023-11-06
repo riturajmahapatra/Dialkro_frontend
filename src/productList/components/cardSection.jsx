@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import LoginModal from '../../components/modals/LoginModal' // Adjust the path as needed
 import RegisterModal from '../../components/modals/RegisterModal' // Adjust the path as needed
 
-const CardSection = ({ onClick, companyName, image, eventName, rating , subject, specialisation,  description, mobile, gymName, dentistName, transportType, price, charges, hotelName,address, hostelName }) => {
+const CardSection = ({ onClick, companyName, image, eventName, rating , sourceName, subject, specialisation,  description, mobile, gymName, dentistName, transportType, price, charges, hotelName,address, hostelName }) => {
  
 
   const [isToggleMenuOpen, setIsToggleMenuOpen] = useState(false) // State to control the toggle menu
@@ -71,6 +71,7 @@ const CardSection = ({ onClick, companyName, image, eventName, rating , subject,
                       {hostelName}
                       {specialisation}
                       {eventName}
+                      {sourceName}
                     </p>
                     <p>{hotelName}</p>
                     <Rating name="read-only" value={rating} readOnly />
