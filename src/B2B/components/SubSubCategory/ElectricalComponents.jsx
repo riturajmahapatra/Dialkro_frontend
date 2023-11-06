@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Nav from '../../../components/Navbar/Nav'
 import Footer from '../../../components/Footer/Footer'
 import BannerCarousel from '../../../components/Body/Carousel/BannerCarousel'
@@ -14,42 +14,42 @@ const ElectricalComponents = () => {
     `${category}Carousel/${category}3.webp`
   ]
 
+  // Dynamic data for Electrical Components
+  const [component , setcomponent] = useState([]);
+  useEffect(()=>{
+     const getElectricComp = async()=>{
+       let fetchComp = await fetch(`${import.meta.env.VITE_REACT_APP}/get/b2b/electricalcomp`,{
+        method:'get',
+        headers:{
+          'Content-Type':'application/json'
+        }
+       });
+       fetchComp = await fetchComp.json();
+       setcomponent(fetchComp.gotElectrical);
+     }
+     getElectricComp();
+  },[])
+
   return (
     <div>
       <Nav services={`B2B`} />
       <BannerCarousel images={images} />
       <div className="mt-10 flex w-full flex-col items-center justify-center gap-5">
         <div className=" flex items-center justify-center gap-5 max-lg:flex-wrap ">
-          <AlignmentSubCards
-            images={`/b2bSubSubCategory/capacitor.webp`}
-            prompt={`capacitor`}
-            onClick={'/b2b'}
-          />
-          <AlignmentSubCards
-            images={`/b2bSubSubCategory/diodes.webp`}
-            prompt={`diodes`}
-            onClick={'/b2b'}
-          />
-          <AlignmentSubCards
-            images={`/b2bSubSubCategory/inductor.webp`}
-            prompt={`inductor`}
-            onClick={'/b2b'}
-          />
-          <AlignmentSubCards
-            images={`/b2bSubSubCategory/led.webp`}
-            prompt={`led`}
-            onClick={'/b2b'}
-          />
-          <AlignmentSubCards
-            images={`/b2bSubSubCategory/transistor.webp`}
-            prompt={`transistor`}
-            onClick={'/b2b'}
-          />
-          <AlignmentSubCards
-            images={`/b2bSubSubCategory/resistor.webp`}
-            prompt={`resistor`}
-            onClick={'/b2b'}
-          />
+
+          {
+            component?.map((item,i)=>{
+              return (
+                <AlignmentSubCards
+                image={item.image}
+                prompt={item.componentName}
+                onClick={`/componentpage/${item.componentName}`}
+              />
+              )
+            })
+          }
+          
+  
         </div>
       </div>
       <Footer />

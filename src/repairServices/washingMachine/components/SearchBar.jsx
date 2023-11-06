@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AlignmentSubCards from '../../../components/ui/AlignmentSubCard'
@@ -7,6 +7,37 @@ const SearchBar = () => {
   const navigate = useNavigate()
   const [searchTerm, setSearchTerm] = useState('')
   const [visibleContentCount, setVisibleContentCount] = useState(5)
+
+  // Dynamic Data for Washing Machine
+  const [searchVal , setsearchVal] = useState('');
+  const [machineData, setmachineData] = useState([]);
+  const [viewMore , setviewMore] = useState(4);
+  useEffect(()=>{
+   const getWashinginfo = async ()=>{
+    let fetchMachineinfo = await fetch(`${import.meta.env.VITE_REACT_APP}/get/washing/service`,{
+      method:'get',
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    });
+    fetchMachineinfo = await fetchMachineinfo.json();
+    // console.log(fetchMachineinfo.getmachineService);
+    setmachineData(fetchMachineinfo.getmachineService);
+    
+   }
+   getWashinginfo();
+  },[])
+
+  // filtered Machine Data
+  const filteredMachine = machineData.filter((item)=>item.companyName.toLowerCase().includes(searchVal.toLowerCase()));
+  
+  // view More Function
+  const handleviewMore = ()=>{
+    setviewMore((prevCount)=>prevCount+5);
+  }
+
+
+
   // Your list of available content
   const availableContent = [
     {
@@ -131,7 +162,7 @@ const SearchBar = () => {
     return (
       <div className="flex w-full flex-col items-center justify-center">
         <div className=" grid items-center justify-center gap-7 max-sm:grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-          {filteredContent.slice(0, visibleContentCount).map((content, index) => (
+          {/* {filteredContent.slice(0, visibleContentCount).map((content, index) => (
             <div key={index}>
               <AlignmentSubCards
                 images={content.images}
@@ -139,9 +170,26 @@ const SearchBar = () => {
                 onClick={'/washingMachine'}
               />
             </div>
-          ))}
+          ))} */}
+
+
+{
+  filteredMachine?.slice(0, viewMore).map((item,i)=>{
+    return (
+      <div>
+      <AlignmentSubCards
+        image={item.image}
+        companyName={item.companyName}
+        onClick={`/washingMachine/${item.companyName}`}
+      />
+    </div>
+    )
+  })
+}
+           
+          
         </div>
-        {filteredContent.length > visibleContentCount && (
+        {/* {filteredContent.length > visibleContentCount && (
           <div className="mt-7 flex items-end justify-end">
             <button
               onClick={handleViewMoreClick}
@@ -149,7 +197,19 @@ const SearchBar = () => {
               View More Category
             </button>
           </div>
-        )}
+        )} */}
+
+        {
+          filteredMachine.length > viewMore && (
+            <div className="mt-7 flex items-end justify-end">
+              <button
+                onClick={handleviewMore}
+                className="h-10 w-40 rounded-md bg-blue-500 text-white hover:bg-blue-400">
+                View More Category
+              </button>
+            </div>
+          )
+        }
       </div>
     )
   }
@@ -175,8 +235,8 @@ const SearchBar = () => {
               type="text"
               placeholder="Search"
               className="w-full rounded-md border bg-gray-50 py-2 pl-12 pr-4 text-gray-500 outline-none focus:border-indigo-600 focus:bg-white"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              value={searchVal}
+              onChange={(e) => setsearchVal(e.target.value)}
               onBlur={redirectToFirstSuggestion}
               onKeyDown={handleEnterKeyPress}
             />

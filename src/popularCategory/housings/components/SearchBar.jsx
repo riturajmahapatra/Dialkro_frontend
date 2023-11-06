@@ -1,12 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AlignmentSubCards from '../../../components/ui/AlignmentSubCard'
 
 const SearchBar = () => {
   const navigate = useNavigate()
-  const [searchTerm, setSearchTerm] = useState('')
+  const [searchTerm, setSearchTerm]  = useState('')
   const [visibleContentCount, setVisibleContentCount] = useState(5)
+
+  // Dynamic data for Realstate
+  useEffect(()=>{
+    const getProperty = async ()=>{
+      let fetchProperty = await fetch(`${import.meta.env.VITE_REACT_APP}/`)
+    }
+  },[])
+
   // Your list of available content
   const availableContent = [
     {

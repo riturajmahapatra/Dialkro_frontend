@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Nav from '../../../components/Navbar/Nav'
 import Footer from '../../../components/Footer/Footer'
 import BannerCarousel from '../../../components/Body/Carousel/BannerCarousel'
@@ -12,38 +12,58 @@ const AgricultureEquipment = () => {
     `${category}Carousel/${category}3.webp`
   ]
 
+  // Dynamic data for Agriculture to the
+  const [Agricultural , setAgricultural] = useState([]);
+  const [viewMore , setviewMore] = useState(4);
+  useEffect(()=>{
+    const getAgriculture = async ()=>{
+      let fetchAgriculture = await fetch(`${import.meta.env.VITE_REACT_APP}/get/b2b/agricultural/tool`,{
+        method:'get',
+        headers:{
+          'Content-Type':'application/json'
+        }
+      });
+      fetchAgriculture = await fetchAgriculture.json();
+      console.log(fetchAgriculture.gotTool);
+      setAgricultural(fetchAgriculture.gotTool);
+    }
+    getAgriculture();
+  },[])
+  
+  // viewMore
+  const handleView = async ()=>{
+    setviewMore((prevCount)=>prevCount+5)
+  }
+
+
   return (
     <div>
       <Nav services={`B2B`} />
       <BannerCarousel images={images} />
       <div className="mt-10 flex w-full flex-col items-center justify-center gap-5">
         <div className=" flex items-center justify-center gap-5 max-lg:flex-wrap ">
-          <AlignmentSubCards
-            images={`/b2bSubSubCategory/cultivator.webp`}
-            prompt={`cultivator`}
-            onClick={'/b2b'}
-          />
-          <AlignmentSubCards
-            images={`/b2bSubSubCategory/hoe.webp`}
-            prompt={`hoe`}
-            onClick={'/b2b'}
-          />
-          <AlignmentSubCards
-            images={`/b2bSubSubCategory/pickaxe.webp`}
-            prompt={`pickaxe`}
-            onClick={'/b2b'}
-          />
-          <AlignmentSubCards
-            images={`/b2bSubSubCategory/sickle.webp`}
-            prompt={`sickle`}
-            onClick={'/b2b'}
-          />
-          <AlignmentSubCards
-            images={`/b2bSubSubCategory/trowel.webp`}
-            prompt={`trowel`}
-            onClick={'/b2b'}
-          />
+
+          {
+            Agricultural?.slice(0,viewMore).map((item,i)=>{
+              return (
+                <AlignmentSubCards
+                image={item.image}
+                prompt={item.toolName}
+                onClick={`/agriculturetoolpage/${item.toolName}`}
+              />
+              )
+            })
+          }
+         
+       
         </div>
+
+        {
+            Agricultural.length > viewMore && 
+            <div>
+              <button onClick={handleView} className='bg-blue-500 text-white font-bold px-5 py-2 rounded '>View More</button>
+            </div>
+        }
       </div>
       <Footer />
     </div>

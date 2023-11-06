@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Nav from '../../../components/Navbar/Nav'
 import Footer from '../../../components/Footer/Footer'
 import BannerCarousel from '../../../components/Body/Carousel/BannerCarousel'
 import AlignmentSubCards from '../../../components/ui/AlignmentSubCard'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react'
 
 const EngineParts = () => {
   const navigation = useNavigate()
@@ -14,42 +15,52 @@ const EngineParts = () => {
     `${category}Carousel/${category}3.webp`
   ]
 
+  // Dynamic Data for Engineparts
+  const [engine , setengine] = useState([])
+  const [image , setimage] = useState()
+  useEffect(()=>{
+    const getEngineparts = async ()=>{
+      let fetchEngine = await fetch(`${import.meta.env.VITE_REACT_APP}/get/b2b/enginepart`,{
+        method:'get',
+        headers:{
+          'Content-Type':'application/json'
+        }
+      });
+      fetchEngine = await fetchEngine.json();
+      // console.log(fetchEngine.gotEngine);
+      setengine(fetchEngine.gotEngine);
+    }
+    getEngineparts();
+},[]);
+
+//  const filteredPart = [... new Set(engine.map((item,i)=>{
+//   return (
+//     item.enginepartName 
+    
+//   )
+//  }))]
+ 
+
   return (
     <div>
       <Nav services={`B2B`} />
       <BannerCarousel images={images} />
       <div className="mt-10 flex w-full flex-col items-center justify-center gap-5">
         <div className=" flex items-center justify-center gap-5 max-lg:flex-wrap ">
-          <AlignmentSubCards
-            images={`/b2bSubSubCategory/camshaft.webp`}
-            prompt={`camshafts`}
-            onClick={'/b2b'}
-          />
-          <AlignmentSubCards
-            images={`/b2bSubSubCategory/crankshaft.webp`}
-            prompt={`crankshaft`}
-            onClick={'/b2b'}
-          />
-          <AlignmentSubCards
-            images={`/b2bSubSubCategory/engine block.webp`}
-            prompt={`cylinder`}
-            onClick={'/b2b'}
-          />
-          <AlignmentSubCards
-            images={`/b2bSubSubCategory/piston.webp`}
-            prompt={`piston`}
-            onClick={'/b2b'}
-          />
-          <AlignmentSubCards
-            images={`/b2bSubSubCategory/valve.webp`}
-            prompt={`valves`}
-            onClick={'/b2b'}
-          />
-          <AlignmentSubCards
-            images={`/b2bSubSubCategory/spares.webp`}
-            prompt={`spare parts`}
-            onClick={'/b2b'}
-          />
+          {
+            engine?.map((item,i)=>{
+              return (
+                <AlignmentSubCards
+                key={item._id}
+                companyName={item.enginepartName}
+                onClick={`/b2b/${item.enginepartName}`}
+                image={item.image}
+              />
+              )
+            })
+          }
+         
+         
         </div>
       </div>
       <Footer />

@@ -16,8 +16,8 @@ const SearchBar = () => {
   const [acData, setacData] = useState([]);
   const [searchVal , setsearchVal] = useState('')
 
+  
   const filterAcdata = acData.filter((item)=>item.companyName.toLowerCase().includes(searchVal.toLowerCase()) );
-   
   
   useEffect(()=>{
     const getAc = async ()=>{
@@ -33,6 +33,7 @@ const SearchBar = () => {
     getAc();
   },[])
 
+ 
   
   // VIEW MORE
   const ViewMore = ()=>{

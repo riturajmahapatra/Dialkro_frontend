@@ -9,7 +9,7 @@ const SubCategoryWeddingServicesPage = () => {
   const images = [
     `${category}Carousel/${category}1.webp`,
     `${category}Carousel/${category}2.webp`,
-    `${category}Carousel/${category}3.webp`,
+    `${category}Carousel/${category}3.webp`, 
     `${category}Carousel/${category}4.webp`
   ]
   return (

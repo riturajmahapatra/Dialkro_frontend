@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
 
-const AlignmentSubCards = ({ images, charges, rating, prompt, onClick, companyName,  image }) => {
+const AlignmentSubCards = ({ images, charges, specialisation, rating, prompt, onClick, companyName,  image }) => {
   return (
     <div className=" z-10 flex duration-500 hover:scale-110">
       <div className="relative flex h-44 flex-col items-start justify-start p-3">
@@ -24,6 +24,7 @@ const AlignmentSubCards = ({ images, charges, rating, prompt, onClick, companyNa
           }}>
           {' '}
           {prompt}
+          {specialisation}
         </h1>
       </div>
     </div>

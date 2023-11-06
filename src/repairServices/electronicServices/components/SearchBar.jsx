@@ -9,7 +9,30 @@ const SearchBar = () => {
   const [visibleContentCount, setVisibleContentCount] = useState(5);
 
  // Dynamic Data for electronic category
+ const [electronic, setelectronic] = useState([]);
+ const [searchVal , setsearchVal] = useState('');
+ const [viewMore , setviewMore] = useState(4);
+ useEffect(()=>{
+  const getElectronic = async ()=>{
+    let fetchElectronic = await fetch(`${import.meta.env.VITE_REACT_APP}/get/electronic/service`, {
+     method:'get',
+     headers:{
+       'Content-Type':'application/json'
+     }
+    });
+    fetchElectronic = await fetchElectronic.json();
+    // console.log(fetchElectronic.electronicService);
+    setelectronic(fetchElectronic.electronicService);
+  }
+  getElectronic();
+ },[])
  
+ const filterElectronic = electronic.filter((item)=>item.companyName.toLowerCase().includes(searchVal.toLowerCase()));
+
+ // View More function
+ const handleViewmore = ()=>{
+   setviewMore((prevCount)=>prevCount+5)
+ }
 
   // Your list of available content
 
@@ -33,7 +56,7 @@ const SearchBar = () => {
     {
       images: '/electronics/Headphones.webp',
       prompt: 'Headphones'
-    },
+    },   
     {
       images: '/electronics/Camera.webp',
       prompt: 'Camera'
@@ -136,7 +159,7 @@ const SearchBar = () => {
     return (
       <div className="flex w-full flex-col items-center justify-center">
         <div className=" grid items-center justify-center gap-7 max-sm:grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-          {filteredContent.slice(0, visibleContentCount).map((content, index) => (
+          {/* {filteredContent.slice(0, visibleContentCount).map((content, index) => (
             <div key={index}>
               <AlignmentSubCards
                 images={content.images}
@@ -144,12 +167,35 @@ const SearchBar = () => {
                 onClick={'/electronicServices'}
               />
             </div>
-          ))}
+          ))} */}
+
+          {
+            filterElectronic?.slice(0,viewMore).map((item,i)=>{
+              return(
+                <AlignmentSubCards key={item._id}
+                companyName={item.companyName}
+                image={item.image}
+                onClick={`/electronicServices/${item.companyName}`}
+              />
+              )
+            })
+             
+            }
         </div>
-        {filteredContent.length > visibleContentCount && (
+        {/* {filteredContent.length > visibleContentCount && (
           <div className="mt-7 flex items-end justify-end">
             <button
               onClick={handleViewMoreClick}
+              className="h-10 w-40 rounded-md bg-blue-500 text-white hover:bg-blue-400">
+              View More Category
+            </button>
+          </div>
+        )} */}
+
+{filterElectronic.length > viewMore && (
+          <div className="mt-7 flex items-end justify-end">
+            <button
+              onClick={handleViewmore}
               className="h-10 w-40 rounded-md bg-blue-500 text-white hover:bg-blue-400">
               View More Category
             </button>
@@ -180,8 +226,8 @@ const SearchBar = () => {
               type="text"
               placeholder="Search"
               className="w-full rounded-md border bg-gray-50 py-2 pl-12 pr-4 text-gray-500 outline-none focus:border-indigo-600 focus:bg-white"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              value={searchVal}
+              onChange={(e) => setsearchVal(e.target.value)}
               onBlur={redirectToFirstSuggestion}
               onKeyDown={handleEnterKeyPress}
             />
