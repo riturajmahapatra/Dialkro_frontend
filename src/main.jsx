@@ -50,7 +50,7 @@ import ProductDetailb2bPageShop from './B2B/components/ProductDetails/ProductDet
 import SubCategoryAutoPage from './automobileparts/components/SubCategory/SubCategoryAutoPage'
 import B2B from './B2B/B2B'
 import SubCategoryb2bPage from './B2B/components/SubCategory/SubCategoryb2bPage'
-import HomeService from './HomeServices/HomeService'
+import HomeService from './HomeServices/Rubberpage.jsx'
 import SubCategoryHomeServicePage from './HomeServices/components/SubCategory/SubCategoryHomeServicePage'
 import LoginModal from './components/modals/LoginModal'
 import Contractor from './otherServices/contractor/Contractor'
@@ -58,9 +58,9 @@ import SubCategoryContractorPage from './otherServices/contractor/components/Sub
 import SubCategoryCouriersPage from './otherServices/couriers/components/SubCategory/SubCategoryCouriersPage'
 import AstrologerPage from './popularCategory/astrologer/AstrologerPage'
 import { Toaster } from 'react-hot-toast'
-import Refrigerator from './HomeServices/components/refrigerator/Refrigerator'
-import Kitchen from './HomeServices/components/kitchen/Kitchen'
-import TV from './HomeServices/components/tv/tv'
+import Refrigerator from './HomeServices/components/Rubber/Rubber.jsx'
+import Kitchen from './HomeServices/components/kitchen/Light.jsx'
+import TV from './HomeServices/components/Airfilter/Airfilter.jsx'
 import Chimney from './HomeServices/components/chimney/Chimney'
 import WaterPurifier from './HomeServices/components/waterPurifier/WaterPurifier'
 import PestControl from './HomeServices/components/pestControl/PestControl'
@@ -87,6 +87,11 @@ import DoctorsPage from './Doctor/DoctorsPage'
 import AgriculturalToolPage from './B2B/components/SubSubCategory/AgriculturalToolPage'
 import Machinerypage from './B2B/components/SubSubCategory/Machinerypage'
 import ElectricComp from './B2B/components/SubSubCategory/ElectricComp'
+import Rubber from './HomeServices/components/Rubber/Rubber.jsx'
+import Rubberpage from './HomeServices/Rubberpage.jsx'
+import Airfilter from './HomeServices/components/Airfilter/Airfilter.jsx'
+import Airfilterpage from './HomeServices/components/Airfilter/Airfilterpage.jsx'
+import Light from './HomeServices/components/kitchen/Light.jsx'
 
 const router = createBrowserRouter([
   {
@@ -147,8 +152,12 @@ const router = createBrowserRouter([
     element: <Autocare />
   },
   {
-    path: '/tvCategories',
-    element: <TV />
+    path: '/b2bcategory/airfilter',
+    element: <Airfilter />
+  },
+  {
+    path:'/airfilterpage/:name',
+    element: <Airfilterpage/>
   },
   {
     path: '/chimneyCategories',
@@ -163,16 +172,16 @@ const router = createBrowserRouter([
     element: <PestControl />
   },
   {
-    path: '/kitchenCategories',
-    element: <Kitchen />
+    path: 'b2bcategory/light',
+    element: <Light />
   },
   {
     path: '/refrigeratorservices',
     element: <Autocare />
   },
   {
-    path: '/refrigeratorCategories',
-    element: <Refrigerator />
+    path: '/rubbercategories',
+    element: <Rubber />
   },
   {
     path: '/kitchenservices',
@@ -188,8 +197,8 @@ const router = createBrowserRouter([
     element: <SubCategoryAutoPage />
   },
   {
-    path: '/homeservices',
-    element: <HomeService />
+    path: '/rubberpage/:name',
+    element: <Rubberpage />
   },
   {
     path: '/homeservicescategory',

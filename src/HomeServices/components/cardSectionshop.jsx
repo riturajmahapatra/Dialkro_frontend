@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import LoginModal from '../../components/modals/LoginModal' // Adjust the path as needed
 import RegisterModal from '../../components/modals/RegisterModal' // Adjust the path as needed
 
-const CardSection = ({ onClick }) => {
+const CardSection = ({ onClick, image, filterType, rubberCategory, companyName, description, price, rating }) => {
   const [isToggleMenuOpen, setIsToggleMenuOpen] = useState(false) // State to control the toggle menu
   const [phoneNumber, setPhoneNumber] = useState('+1234567890')
   const [value] = React.useState(3)
@@ -55,7 +55,7 @@ const CardSection = ({ onClick }) => {
             <img
               className="h-60 w-full cursor-pointer rounded-lg object-cover"
               onClick={onClick}
-              src={faker.image.url()}
+              src={image}
               alt="Card Image"
             />
           </div>
@@ -63,16 +63,17 @@ const CardSection = ({ onClick }) => {
             <div className="">
               <p onClick={onClick} className="cursor-pointer text-xl font-bold capitalize">
                 {' '}
-                {faker.commerce.productName()}{' '}
+                {companyName}
               </p>
-              <Rating name="read-only" value={value} readOnly />
+              <Rating name="read-only" value={rating} readOnly />
               <p className="cursor-pointer text-lg font-bold uppercase">
-                {faker.company.buzzVerb()}
+                {rubberCategory}
+                {filterType}
               </p>
               <p className=" w-3/4 max-md:h-[7vh] max-md:w-[78vw]">
-                {faker.commerce.productDescription().substring(0, 75)}
+                {description}
               </p>
-              <h1 className=" text-xl font-bold">₹ {faker.commerce.price()}</h1>
+              <h1 className=" text-xl font-bold">₹ {price}</h1>
             </div>
 
             {/* ... (other JSX code) */}

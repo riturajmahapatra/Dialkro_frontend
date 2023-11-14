@@ -36,12 +36,12 @@ const SearchBar = () => {
     {
       images: '/b2bCarousel/rubber.webp',
       title: 'Rubber',
-      onClick: '/refrigeratorCategories'
+      onClick: '/rubbercategories'
     },
     {
       images: '/b2bCarousel/airfilter.webp',
       title: 'Air Filter',
-      onClick: '/tvCategories'
+      onClick: '/b2bcategory/airfilter'
     },
     {
       images: '/b2bCarousel/cabinet.webp',
